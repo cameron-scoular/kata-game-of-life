@@ -11,16 +11,17 @@ namespace kata_game_of_life
             var gameProcessor = new GameProcessor(1000);
             var renderer = new Game2DConsoleRenderer();
 
-            var savedBoardPath =
+            var boardPath =
                 "/Users/cameron.scoular/Desktop/Code/kata-game-of-life/kata-game-of-life/Boards/board_1.txt";
+            var savedBoardPath =
+                "/Users/cameron.scoular/Desktop/Code/kata-game-of-life/kata-game-of-life/Boards/saved_board_1.txt";
             
-            var boardPersistence = new Local2DBoardPersistence();
-            
-            var cellArray = boardPersistence.LoadBoardState(savedBoardPath);
+            var boardPersistence = new LocalBoardPersistence();
+
+            var cellArray = NewGameLoader.LoadNew2dBoard(boardPath);
             
             var board = new DefaultBoard(cellArray);
             
-            //var initialGameState = gameProcessor.StartNewGame(defaultBoard);
             var initialGameState = gameProcessor.StartNewGame(board, new BoardProcessor());
             
             renderer.Render(initialGameState);
@@ -30,11 +31,11 @@ namespace kata_game_of_life
               var nextGameState = gameProcessor.Tick();
               renderer.Render(nextGameState);
 
-              /*
+              
               if (nextGameState.TickNumber % 5 == 0)
               {
-                  boardPersistence.SaveBoardState(nextGameState.Board, savedBoardPath);
-              }*/
+                  boardPersistence.SaveBoardState(nextGameState.Board.GetCellArray(), savedBoardPath);
+              }
             }
             
         }
