@@ -1,11 +1,15 @@
+using System.Net.NetworkInformation;
+
 namespace kata_game_of_life
 {
     public class Cell
     {
-        public CellState CellState { get; private set; }
+        public int CellId { get; private set; }
+        public CellState CellState { get; set; }
 
-        public Cell(CellState cellState)
+        public Cell(int cellId, CellState cellState)
         {
+            CellId = cellId;
             CellState = cellState;
         }
 

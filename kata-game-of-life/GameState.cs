@@ -4,11 +4,11 @@ namespace kata_game_of_life
     {
 
         private IBoardProcessor BoardProcessor;
-        public Cell[,] Board { get; private set; }
+        public IBoard Board { get; private set; }
         public int TickNumber { get; private set; }
         
         
-        public GameState(Cell[,] board, IBoardProcessor boardProcessor)
+        public GameState(IBoard board, IBoardProcessor boardProcessor)
         {
             BoardProcessor = boardProcessor;
             Board = board;

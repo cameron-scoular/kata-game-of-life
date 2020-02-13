@@ -6,7 +6,7 @@ namespace kata_game_of_life_tests
 {
     public class GameProcessorShould
     {
-        
+        /*
         [Fact]
         public void StartNewGame_GetsEmptyBoard_GivenNewGameWithEmptyBoard()
         {
@@ -19,7 +19,7 @@ namespace kata_game_of_life_tests
                 {new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead)}
             };
             
-            var boardProcessor = new WrappingBoardProcessor();
+            var boardProcessor = new BoardProcessor();
             var gameProcessor = new GameProcessor(0);
             
             var initialGameState = gameProcessor.StartNewGame(emptyBoard, boardProcessor);
@@ -40,7 +40,7 @@ namespace kata_game_of_life_tests
                 {new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead)}
             };
             
-            var boardProcessor = new WrappingBoardProcessor();
+            var boardProcessor = new BoardProcessor();
             var gameProcessor = new GameProcessor(0);
             
             var initialGameState = gameProcessor.StartNewGame(emptyBoard, boardProcessor);
@@ -61,7 +61,7 @@ namespace kata_game_of_life_tests
                 {new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead)}
             };
             
-            var boardProcessor = new WrappingBoardProcessor();    
+            var boardProcessor = new BoardProcessor();    
             var gameProcessor = new GameProcessor(0);
 
             var initialGameState = gameProcessor.StartNewGame(initialBoard, boardProcessor);
@@ -74,7 +74,7 @@ namespace kata_game_of_life_tests
         public void GetNextBoard_GetsBoardWithOscillatingLine_GivenBoardWithLine()
         {
             var initialBoard = new [,] {
-                {new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead)},
+                {new Cell(CellState.Dead, 0), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead)},
                 {new Cell(CellState.Alive), new Cell(CellState.Alive), new Cell(CellState.Alive), new Cell(CellState.Dead), new Cell(CellState.Dead)},
                 {new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead)},
                 {new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead)},
@@ -89,7 +89,7 @@ namespace kata_game_of_life_tests
                 {new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead), new Cell(CellState.Dead)}
             };
             
-            var boardProcessor = new WrappingBoardProcessor();    
+            var boardProcessor = new BoardProcessor();    
             var gameProcessor = new GameProcessor(0);
 
             var initialGameState = gameProcessor.StartNewGame(initialBoard, boardProcessor);
@@ -97,7 +97,7 @@ namespace kata_game_of_life_tests
 
             Assert.Equal(JsonConvert.SerializeObject(expectedBoard), JsonConvert.SerializeObject(nextGameState.Board));
         }
-        
+        */
         
     }
 }

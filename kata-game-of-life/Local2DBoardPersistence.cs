@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace kata_game_of_life
 {
-    public class LocalBoardPersistence : IBoardPersistence
+    public class Local2DBoardPersistence : IBoardPersistence
     {
 
         public Cell[,] LoadBoardState(string path)
@@ -22,8 +22,9 @@ namespace kata_game_of_life
                 {
                     var coordinateCharacter = rowStrings[y][x];
 
-                    var newCellState = coordinateCharacter == Constants.CellAliveRenderSymbol ? CellState.Alive : CellState.Dead;          
-                    board[maxX - x - 1, maxY - y - 1] = new Cell(newCellState);
+                    var newCellState = coordinateCharacter == Constants.CellAliveRenderSymbol ? CellState.Alive : CellState.Dead;
+                    var cellId = y * maxX + x;
+                    board[maxX - x - 1, maxY - y - 1] = new Cell(cellId, newCellState);
                 }
             }
 

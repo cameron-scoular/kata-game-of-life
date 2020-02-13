@@ -21,7 +21,7 @@ namespace kata_game_of_life
         
         
 
-        public GameState StartNewGame(Cell[,] startingBoard, IBoardProcessor boardProcessor)
+        public GameState StartNewGame(IBoard startingBoard, IBoardProcessor boardProcessor)
         {
             GameState = new GameState(startingBoard, boardProcessor);
             return GameState;
