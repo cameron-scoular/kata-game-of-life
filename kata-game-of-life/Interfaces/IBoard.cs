@@ -12,12 +12,11 @@ namespace kata_game_of_life
 
         void ResetCellIterator();
         
-        int GetNumberOfCells();
-
         List<int> GetDimensions();
 
         int GetAdjacentCellCount(CellState adjacentCellState, int cellId);
-        
-        
+
+        object GetCellArray();
+
     }
 }

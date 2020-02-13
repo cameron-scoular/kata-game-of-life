@@ -50,11 +50,6 @@ namespace kata_game_of_life
         {
             _iteratorId = 0;
         }
-        
-        public int GetNumberOfCells()
-        {
-            return _maxX * _maxY;
-        }
 
         public List<int> GetDimensions()
         {
@@ -92,6 +87,11 @@ namespace kata_game_of_life
             }
 
             return adjacencyCount;
+        }
+
+        public object GetCellArray()
+        {
+            return _cellArray;
         }
 
         private Tuple<int, int> GetCoordinates(int cellId)
