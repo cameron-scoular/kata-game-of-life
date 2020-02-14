@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using kata_game_of_life.Interfaces;
+using kata_game_of_life.State;
 
-namespace kata_game_of_life
+namespace kata_game_of_life.Boards
 {
-    public class DefaultBoard : IBoard
+    public class TwoDimensionalBoard : IBoard
     {
 
         private readonly Cell[,] _cellArray;
@@ -11,18 +13,30 @@ namespace kata_game_of_life
         private readonly int _maxY;
         private int _iteratorId;
 
-        public DefaultBoard(Cell[,] cellArray)
+        public TwoDimensionalBoard(Cell[,] cellArray)
         {
-            _cellArray = cellArray;
+            _cellArray = AssignCellIds(cellArray);
             _maxX = cellArray.GetLength(0);
             _maxY = cellArray.GetLength(1);
             _iteratorId = 0;
         }
+
+        private Cell[,] AssignCellIds(Cell[,] cellArray)
+        {
+            var id = 0;
+            foreach(var cell in cellArray)
+            {
+                cell.CellId = id;
+                id++;
+            }
+
+            return cellArray;
+        }
         
         public Cell GetCell(int cellId)
         {
-            var coords = GetCoordinates(cellId);
-            return _cellArray[coords.Item1, coords.Item2];
+            var (x, y) = GetCoordinates(cellId);
+            return _cellArray[x, y];
         }
 
         public void SetCellState(int cellId, CellState cellState)
@@ -59,11 +73,9 @@ namespace kata_game_of_life
             };
         }
 
-        public int GetAdjacentCellCount(CellState adjacentCellState, int cellId)
+        public int GetAdjacentCellCount(CellState cellStateToCount, int cellId)
         {
             var adjacencyCount = 0;
-            var maxX = GetDimensions()[0];
-            var maxY = GetDimensions()[1];
 
             for (var xDelta = -1; xDelta <= 1; xDelta++)
             {
@@ -71,14 +83,13 @@ namespace kata_game_of_life
                 {
                     if (xDelta != 0 || yDelta != 0)
                     {
-                        var x = GetCoordinates(cellId).Item1;
-                        var y = GetCoordinates(cellId).Item2;
-  
-                        var adjacentX = Modulus((x + xDelta), maxX);
-                        var adjacentY = Modulus((y + yDelta), maxY);
+                        var (x, y) = GetCoordinates(cellId);
+                        
+                        var adjacentX = Modulus((x + xDelta), _maxX);
+                        var adjacentY = Modulus((y + yDelta), _maxY);
                         var adjacentCell = _cellArray[adjacentX, adjacentY];
 
-                        if (adjacentCell.CellState == adjacentCellState)
+                        if (adjacentCell.CellState == cellStateToCount)
                         {
                             adjacencyCount++;
                         }

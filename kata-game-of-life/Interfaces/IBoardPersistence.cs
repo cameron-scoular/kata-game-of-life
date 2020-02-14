@@ -1,4 +1,4 @@
-namespace kata_game_of_life
+namespace kata_game_of_life.Interfaces
 {
     public interface IBoardPersistence
     {

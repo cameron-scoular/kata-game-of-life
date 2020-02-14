@@ -1,4 +1,8 @@
 ﻿using System;
+using kata_game_of_life.Boards;
+using kata_game_of_life.GameRenderers;
+using kata_game_of_life.Processors;
+using kata_game_of_life.State;
 
 namespace kata_game_of_life
 {
@@ -7,39 +11,90 @@ namespace kata_game_of_life
 
         static void Main(string[] args)
         {
-            
-            var gameProcessor = new GameProcessor(1000);
-            var renderer = new Game2DConsoleRenderer();
+            var arguments = ArgumentParser.ParseArguments(args);
 
-            var boardPath =
-                "/Users/cameron.scoular/Desktop/Code/kata-game-of-life/kata-game-of-life/Boards/board_1.txt";
-            var savedBoardPath =
-                "/Users/cameron.scoular/Desktop/Code/kata-game-of-life/kata-game-of-life/Boards/saved_board_1.txt";
-            
-            var boardPersistence = new LocalBoardPersistence();
-
-            var cellArray = NewGameLoader.LoadNew2dBoard(boardPath);
-            
-            var board = new DefaultBoard(cellArray);
-            
-            var initialGameState = gameProcessor.StartNewGame(board, new BoardProcessor());
-            
-            renderer.Render(initialGameState);
-
-            while (true)
+            switch (arguments.Dimensions)
             {
-              var nextGameState = gameProcessor.Tick();
-              renderer.Render(nextGameState);
-
-              
-              if (nextGameState.TickNumber % 5 == 0)
-              {
-                  boardPersistence.SaveBoardState(nextGameState.Board.GetCellArray(), savedBoardPath);
-              }
+                case 2:
+                    Play2DConsoleGame(arguments);
+                    break;
+                case 3:
+                    Play3DGame(arguments);
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
+        }
+
+        public static void Play3DGame(Arguments arguments)
+        {
+            
+            var gameProcessor = new GameProcessor(Configuration.TickPeriod);
+            var renderer = new ThreeDimensionalConsoleRenderer();
+            var boardPersistence = new LocalBoardPersistence();
+            
+            var cellArray = NewGameLoader.LoadDefault3dBoard();
+            var board = new ThreeDimensionalBoard(cellArray);
+
+            var client = new DefaultGameClient(gameProcessor, boardPersistence, renderer, arguments.SaveFileName);
+            
+            client.PlayGame(board);
             
         }
-        
-        
+
+        public static void Play2DConsoleGame(Arguments arguments)
+        {
+            
+            var gameProcessor = new GameProcessor(Configuration.TickPeriod);
+            var renderer = new TwoDimensionalConsoleRenderer();
+            var boardPersistence = new LocalBoardPersistence();
+
+            var cellArray = Load2DCellArray(arguments, boardPersistence);
+            var board = new TwoDimensionalBoard(cellArray);
+            
+            var client = new DefaultGameClient(gameProcessor, boardPersistence, renderer, arguments.SaveFileName);
+            
+            client.PlayGame(board);
+        }
+
+        private static Cell[,,] Load3DCellArray(Arguments arguments, LocalBoardPersistence boardPersistence)
+        {
+            Cell[,,] cellArray;
+            
+            if (arguments.LoadResourceName != null)
+            {
+                throw new NotImplementedException();
+            }
+            else if (arguments.LoadFileName != null)
+            {
+                cellArray = boardPersistence.LoadBoardState<Cell[,,]>(arguments.LoadFileName);
+            }
+            else
+            {
+                cellArray = NewGameLoader.LoadDefault3dBoard();
+            }
+
+            return cellArray;
+        }
+
+        private static Cell[,] Load2DCellArray(Arguments arguments, LocalBoardPersistence boardPersistence)
+        {
+            Cell[,] cellArray;
+            
+            if (arguments.LoadResourceName != null)
+            {
+                cellArray = NewGameLoader.LoadNew2dCellArray(arguments.LoadResourceName);
+            }
+            else if (arguments.LoadFileName != null)
+            {
+                cellArray = boardPersistence.LoadBoardState<Cell[,]>(arguments.LoadFileName);
+            }
+            else
+            {
+                cellArray = NewGameLoader.LoadDefault2dBoard();
+            }
+
+            return cellArray;
+        }
     }
 }

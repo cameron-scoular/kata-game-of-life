@@ -1,7 +1,8 @@
-using System.Diagnostics;
 using System.Threading;
+using kata_game_of_life.Interfaces;
+using kata_game_of_life.State;
 
-namespace kata_game_of_life
+namespace kata_game_of_life.Processors
 {
     public class GameProcessor
     {
@@ -19,8 +20,6 @@ namespace kata_game_of_life
             return GameState;
         }
         
-        
-
         public GameState StartNewGame(IBoard startingBoard, IBoardProcessor boardProcessor)
         {
             GameState = new GameState(startingBoard, boardProcessor);

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using kata_game_of_life.Interfaces;
 using Newtonsoft.Json;
 
 namespace kata_game_of_life

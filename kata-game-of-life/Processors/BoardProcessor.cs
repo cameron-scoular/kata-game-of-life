@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using kata_game_of_life.Interfaces;
+using kata_game_of_life.State;
 
-namespace kata_game_of_life
+namespace kata_game_of_life.Processors
 {
     public class BoardProcessor : IBoardProcessor
     {
+        
         public IBoard GetNextBoard(IBoard board)
         {
             var adjacencyCountDictionary = ConstructAdjacencyCountDictionary(board);
