@@ -9,15 +9,15 @@ namespace kata_game_of_life.Interfaces
         
         object GetCellArray();
         
-        void SetCellState(int cellId, CellState cellState);
-        
         List<int> GetDimensions();
         
         int GetAdjacentCellCount(CellState cellStateToCount, int cellId);
         
-        Cell IterateNextCell();
+        void SetCellState(int cellId, CellState cellState);
         
-        void ResetCellIterator();
+        Cell EnumerateNextCell();
+        
+        void ResetCellEnumerator();
 
     }
 }

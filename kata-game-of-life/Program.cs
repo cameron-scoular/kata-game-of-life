@@ -26,23 +26,23 @@ namespace kata_game_of_life
             }
         }
 
-        public static void Play3DGame(Arguments arguments)
+        private static void Play3DGame(Arguments arguments)
         {
             
             var gameProcessor = new GameProcessor(Configuration.TickPeriod);
             var renderer = new ThreeDimensionalConsoleRenderer();
             var boardPersistence = new LocalBoardPersistence();
-            
-            var cellArray = NewGameLoader.LoadDefault3dBoard();
+
+            var cellArray = Load3DCellArray(arguments, boardPersistence);
             var board = new ThreeDimensionalBoard(cellArray);
 
-            var client = new DefaultGameClient(gameProcessor, boardPersistence, renderer, arguments.SaveFileName);
+            var client = new LoopingGameClient(gameProcessor, boardPersistence, renderer, arguments.SaveFileName);
             
             client.PlayGame(board);
             
         }
 
-        public static void Play2DConsoleGame(Arguments arguments)
+        private static void Play2DConsoleGame(Arguments arguments)
         {
             
             var gameProcessor = new GameProcessor(Configuration.TickPeriod);
@@ -52,7 +52,7 @@ namespace kata_game_of_life
             var cellArray = Load2DCellArray(arguments, boardPersistence);
             var board = new TwoDimensionalBoard(cellArray);
             
-            var client = new DefaultGameClient(gameProcessor, boardPersistence, renderer, arguments.SaveFileName);
+            var client = new LoopingGameClient(gameProcessor, boardPersistence, renderer, arguments.SaveFileName);
             
             client.PlayGame(board);
         }

@@ -5,6 +5,10 @@ namespace kata_game_of_life.State
         public int CellId { get; set; }
         public CellState CellState { get; set; }
 
+        public Cell()
+        {
+        }
+
         public Cell(int cellId, CellState cellState)
         {
             CellId = cellId;

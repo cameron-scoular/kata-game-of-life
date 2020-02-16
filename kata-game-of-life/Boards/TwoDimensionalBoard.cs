@@ -44,7 +44,7 @@ namespace kata_game_of_life.Boards
             GetCell(cellId).CellState = cellState;
         }
 
-        public Cell IterateNextCell()
+        public Cell EnumerateNextCell()
         {
             Cell cell;
             try
@@ -60,7 +60,7 @@ namespace kata_game_of_life.Boards
             return cell;
         }
 
-        public void ResetCellIterator()
+        public void ResetCellEnumerator()
         {
             _iteratorId = 0;
         }

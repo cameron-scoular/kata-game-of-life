@@ -1,12 +1,15 @@
 using System.IO;
+using System.Reflection.Metadata;
 using kata_game_of_life.State;
+using Microsoft.VisualBasic;
 
 namespace kata_game_of_life
 {
     public static class NewGameLoader
     {
-        public static Cell[,] LoadNew2dCellArray(string path)
+        public static Cell[,] LoadNew2dCellArray(string fileName)
         {
+            var path = $"{Configuration.DefaultNewDirectory}{fileName}";
             var rowStrings = File.ReadAllLines(path);
 
             var maxX = rowStrings[0].Length;
@@ -35,7 +38,7 @@ namespace kata_game_of_life
             {
                 {
                     {new Cell(0, CellState.Alive), new Cell(1, CellState.Dead)},
-                    {new Cell(2, CellState.Dead), new Cell(3, CellState.Alive)}
+                    {new Cell(2, CellState.Alive), new Cell(3, CellState.Dead)}
                 },
                 {
                     {new Cell(4, CellState.Dead), new Cell(5, CellState.Dead)},
@@ -49,24 +52,19 @@ namespace kata_game_of_life
             return new[,]
             {
                 {
-                    new Cell(0, CellState.Dead), new Cell(1, CellState.Dead), new Cell(2, CellState.Dead),
-                    new Cell(3, CellState.Dead), new Cell(4, CellState.Dead)
+                    new Cell(0, CellState.Dead), new Cell(1, CellState.Dead), new Cell(2, CellState.Dead), new Cell(3, CellState.Dead), new Cell(4, CellState.Dead)
                 },
                 {
-                    new Cell(5, CellState.Dead), new Cell(6, CellState.Dead), new Cell(7, CellState.Dead),
-                    new Cell(8, CellState.Dead), new Cell(9, CellState.Dead)
+                    new Cell(5, CellState.Dead), new Cell(6, CellState.Dead), new Cell(7, CellState.Alive), new Cell(8, CellState.Dead), new Cell(9, CellState.Dead)
                 },
                 {
-                    new Cell(10, CellState.Dead), new Cell(11, CellState.Dead), new Cell(12, CellState.Dead),
-                    new Cell(13, CellState.Dead), new Cell(14, CellState.Dead)
+                    new Cell(10, CellState.Dead), new Cell(11, CellState.Dead), new Cell(12, CellState.Alive), new Cell(13, CellState.Dead), new Cell(14, CellState.Dead)
                 },
                 {
-                    new Cell(15, CellState.Dead), new Cell(16, CellState.Dead), new Cell(17, CellState.Dead),
-                    new Cell(18, CellState.Dead), new Cell(19, CellState.Dead)
+                    new Cell(15, CellState.Dead), new Cell(16, CellState.Dead), new Cell(17, CellState.Alive), new Cell(18, CellState.Dead), new Cell(19, CellState.Dead)
                 },
                 {
-                    new Cell(20, CellState.Dead), new Cell(21, CellState.Dead), new Cell(22, CellState.Dead),
-                    new Cell(23, CellState.Dead), new Cell(24, CellState.Dead)
+                    new Cell(20, CellState.Dead), new Cell(21, CellState.Dead), new Cell(22, CellState.Dead), new Cell(23, CellState.Dead), new Cell(24, CellState.Dead)
                 },
             };
         }

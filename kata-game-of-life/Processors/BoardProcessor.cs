@@ -45,14 +45,14 @@ namespace kata_game_of_life.Processors
             
             var adjacencyCountDictionary = new Dictionary<int, int>();
 
-            board.ResetCellIterator();
-            var nextCell = board.IterateNextCell();
+            board.ResetCellEnumerator();
+            var nextCell = board.EnumerateNextCell();
 
             while (nextCell != null)
             {
                 var adjacentCellCount = board.GetAdjacentCellCount(CellState.Alive, nextCell.CellId);
                 adjacencyCountDictionary.Add(nextCell.CellId, adjacentCellCount);
-                nextCell = board.IterateNextCell();
+                nextCell = board.EnumerateNextCell();
             }
             
             return adjacencyCountDictionary;

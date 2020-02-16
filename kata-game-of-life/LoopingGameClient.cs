@@ -3,14 +3,14 @@ using kata_game_of_life.Processors;
 
 namespace kata_game_of_life
 {
-    public class DefaultGameClient : IGameClient
+    public class LoopingGameClient : IGameClient
     {
         private readonly GameProcessor _gameProcessor;
         private readonly IBoardPersistence _boardPersistence;
         private readonly IGameRenderer _renderer;
         private readonly string _savePath;
 
-        public DefaultGameClient(GameProcessor gameProcessor, IBoardPersistence boardPersistence, IGameRenderer renderer, string savePath)
+        public LoopingGameClient(GameProcessor gameProcessor, IBoardPersistence boardPersistence, IGameRenderer renderer, string savePath)
         {
             _gameProcessor = gameProcessor;
             _boardPersistence = boardPersistence;
