@@ -9,14 +9,11 @@ namespace kata_game_of_life
 
         public static Arguments ParseArguments(string[] args)
         {
-            var dimensions = int.Parse(args[0]);
-            
             return new Arguments()
             {
-                Dimensions = dimensions,
                 LoadFileName = ParseStringArgument(args, "-l"),
                 SaveFileName = ParseStringArgument(args, "-s"),
-                LoadResourceName = ParseStringArgument(args, "-r")
+                DefaultDimensions = Convert.ToInt32(ParseStringArgument(args, "-d"))
             };
 
         }

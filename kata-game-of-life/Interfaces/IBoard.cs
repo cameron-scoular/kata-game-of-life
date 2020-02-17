@@ -10,7 +10,7 @@ namespace kata_game_of_life.Interfaces
         object GetCellArray();
         
         List<int> GetDimensions();
-        
+
         int GetAdjacentCellCount(CellState cellStateToCount, int cellId);
         
         void SetCellState(int cellId, CellState cellState);

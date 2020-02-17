@@ -1,15 +1,50 @@
+using System;
 using System.IO;
-using System.Reflection.Metadata;
+using kata_game_of_life.Boards;
+using kata_game_of_life.Interfaces;
+using kata_game_of_life.Processors;
 using kata_game_of_life.State;
-using Microsoft.VisualBasic;
 
-namespace kata_game_of_life
+namespace kata_game_of_life.Persistence
 {
-    public static class NewGameLoader
+    public class LocalNewGameLoader : INewGameLoader
     {
-        public static Cell[,] LoadNew2dCellArray(string fileName)
+
+        public GameState LoadNewGame(Arguments arguments)
+        {
+            if (arguments.DefaultDimensions != 0 || arguments.LoadFileName == null || arguments.LoadFileName == string.Empty)
+            {
+                return GetDefaultNewGameState(arguments);
+            }
+
+            return LoadNewGameFile(arguments.LoadFileName);
+        }
+        
+        private GameState LoadNewGameFile(string fileName)
+        {
+            var cells = LoadNew2DCellArray(fileName);
+            var board = new TwoDimensionalBoard(cells);
+            
+            return new GameState(board, new DefaultBoardProcessor());
+        }
+
+        public GameState GetDefaultNewGameState(Arguments arguments)
+        {
+            switch (arguments.DefaultDimensions)
+            {
+                case 2:
+                    return LoadNewGameFile(Configuration.DefaultDimensionGameDictionary[2]);
+                case 3:
+                    return LoadDefault3DGame();
+                default:
+                    throw new NotImplementedException($"Default game is not supported for {arguments.DefaultDimensions} dimensions");
+            }
+        }
+
+        public static Cell[,] LoadNew2DCellArray(string fileName)
         {
             var path = $"{Configuration.DefaultNewDirectory}{fileName}";
+            
             var rowStrings = File.ReadAllLines(path);
 
             var maxX = rowStrings[0].Length;
@@ -32,9 +67,9 @@ namespace kata_game_of_life
             return board;
         }
 
-        public static Cell[,,] LoadDefault3dBoard()
+        public static GameState LoadDefault3DGame()
         {
-            return new Cell[2, 2, 2]
+            var cells =  new Cell[2, 2, 2]
             {
                 {
                     {new Cell(0, CellState.Alive), new Cell(1, CellState.Dead)},
@@ -45,6 +80,8 @@ namespace kata_game_of_life
                     {new Cell(6, CellState.Dead), new Cell(7, CellState.Dead)}
                 }
             };
+            var board = new ThreeDimensionalBoard(cells);
+            return new GameState(board, new DefaultBoardProcessor());
         }
 
         public static Cell[,] LoadDefault2dBoard()

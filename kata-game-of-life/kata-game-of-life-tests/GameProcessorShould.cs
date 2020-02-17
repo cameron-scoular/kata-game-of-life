@@ -24,12 +24,13 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(emptyCellArray);
             
-            var boardProcessor = new BoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor();
             var gameProcessor = new GameProcessor(0);
             
             var board = new TwoDimensionalBoard(emptyCellArray);
             
-            var initialGameState = gameProcessor.StartNewGame(board, boardProcessor);
+            var initialGameState = new GameState(board, boardProcessor);
+            initialGameState = gameProcessor.StartNewGame(initialGameState);
             
             Assert.Equal(expectedSerializedCellArray, JsonConvert.SerializeObject(initialGameState.Board.GetCellArray()));
 
@@ -48,12 +49,14 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(emptyBoard);
             
-            var boardProcessor = new BoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor();
             var gameProcessor = new GameProcessor(0);
             
             var board = new TwoDimensionalBoard(emptyBoard);
 
-            var initialGameState = gameProcessor.StartNewGame(board, boardProcessor);
+            var initialGameState = new GameState(board, boardProcessor);
+            initialGameState = gameProcessor.StartNewGame(initialGameState);
+
             var nextGameState = gameProcessor.Tick();
             
             Assert.Equal(expectedSerializedCellArray, JsonConvert.SerializeObject(nextGameState.Board.GetCellArray()));
@@ -72,12 +75,14 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(cellArray);
             
-            var boardProcessor = new BoardProcessor();    
+            var boardProcessor = new DefaultBoardProcessor();    
             var gameProcessor = new GameProcessor(0);
             
             var board = new TwoDimensionalBoard(cellArray);
 
-            var initialGameState = gameProcessor.StartNewGame(board, boardProcessor);
+            var initialGameState = new GameState(board, boardProcessor);
+            initialGameState = gameProcessor.StartNewGame(initialGameState);
+
             var nextGameState = gameProcessor.Tick();
 
             Assert.Equal(expectedSerializedCellArray, JsonConvert.SerializeObject(nextGameState.Board.GetCellArray()));
@@ -102,12 +107,14 @@ namespace kata_game_of_life_tests
                 {new Cell(20, CellState.Dead), new Cell(21, CellState.Dead), new Cell(22, CellState.Dead), new Cell(23, CellState.Dead), new Cell(24, CellState.Dead)}
             };
             
-            var boardProcessor = new BoardProcessor();    
+            var boardProcessor = new DefaultBoardProcessor();    
             var gameProcessor = new GameProcessor(0);
             
             var board = new TwoDimensionalBoard(cellArray);
 
-            var initialGameState = gameProcessor.StartNewGame(board, boardProcessor);
+            var initialGameState = new GameState(board, boardProcessor);
+            initialGameState = gameProcessor.StartNewGame(initialGameState);
+
             var nextGameState = gameProcessor.Tick();
 
             Assert.Equal(JsonConvert.SerializeObject(expectedCellArray), JsonConvert.SerializeObject(nextGameState.Board.GetCellArray()));
@@ -124,12 +131,13 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(emptyCellArray);
             
-            var boardProcessor = new BoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor();
             var gameProcessor = new GameProcessor(0);
             
             var board = new ThreeDimensionalBoard(emptyCellArray);
 
-            var initialGameState = gameProcessor.StartNewGame(board, boardProcessor);
+            var initialGameState = new GameState(board, boardProcessor);
+            initialGameState = gameProcessor.StartNewGame(initialGameState);
             var nextGameState = gameProcessor.Tick();
             
             Assert.Equal(expectedSerializedCellArray, JsonConvert.SerializeObject(nextGameState.Board.GetCellArray()));
@@ -146,12 +154,13 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(cellArray);
             
-            var boardProcessor = new BoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor();
             var gameProcessor = new GameProcessor(0);
             
             var board = new ThreeDimensionalBoard(cellArray);
 
-            var initialGameState = gameProcessor.StartNewGame(board, boardProcessor);
+            var initialGameState = new GameState(board, boardProcessor);
+            initialGameState = gameProcessor.StartNewGame(initialGameState);
             var nextGameState = gameProcessor.Tick();
             
             Assert.Equal(expectedSerializedCellArray, JsonConvert.SerializeObject(nextGameState.Board.GetCellArray()));
@@ -172,12 +181,13 @@ namespace kata_game_of_life_tests
                 {{new Cell(4, CellState.Dead),  new Cell(5, CellState.Dead)}, {new Cell(6, CellState.Dead),  new Cell(7, CellState.Dead)}}
             };
             
-            var boardProcessor = new BoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor();
             var gameProcessor = new GameProcessor(0);
             
             var board = new ThreeDimensionalBoard(cellArray);
 
-            var initialGameState = gameProcessor.StartNewGame(board, boardProcessor);
+            var initialGameState = new GameState(board, boardProcessor);
+            initialGameState = gameProcessor.StartNewGame(initialGameState);
             var nextGameState = gameProcessor.Tick();
             
             Assert.Equal(JsonConvert.SerializeObject(emptyArray), JsonConvert.SerializeObject(nextGameState.Board.GetCellArray()));

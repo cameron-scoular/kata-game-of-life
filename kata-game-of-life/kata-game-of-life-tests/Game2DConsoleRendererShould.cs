@@ -11,7 +11,7 @@ namespace kata_game_of_life_tests
     {
 
         [Fact]
-        public void GenerateBoardString_GetsCorrectBoardString_GivenGameState()
+        public void GenerateBoardString_GetsCorrect2DBoardString_GivenGameState()
         {
 
             var cellArray = new [,]
@@ -21,17 +21,17 @@ namespace kata_game_of_life_tests
                 {new Cell(0, CellState.Dead), new Cell(1, CellState.Alive)}
             };
             
-            var board = new TwoDimensionalBoard(cellArray);
-            var gameState = new GameState(board, new BoardProcessor());
+            dynamic board = new TwoDimensionalBoard(cellArray);
             
-            var renderer = new TwoDimensionalConsoleRenderer();
+            var renderer = new ConsoleRenderer();
 
-            var renderString = renderer.GenerateBoardString(gameState);
+            var renderString = renderer.GenerateBoardString(board);
 
-            var expectedString = "ooo\n" +
-                                 "..o\n";
-                            
-            
+            var expectedString = "---\n" +
+                                 "ooo\n"+
+                                 "..o\n" +
+                                 "---\n";
+
             Assert.Equal(expectedString, renderString);
 
         }

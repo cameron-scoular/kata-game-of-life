@@ -5,7 +5,7 @@ using kata_game_of_life.State;
 
 namespace kata_game_of_life.Processors
 {
-    public class BoardProcessor : IBoardProcessor
+    public class DefaultBoardProcessor : IBoardProcessor
     {
         
         public IBoard GetNextBoard(IBoard board)

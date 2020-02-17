@@ -20,9 +20,9 @@ namespace kata_game_of_life.Processors
             return GameState;
         }
         
-        public GameState StartNewGame(IBoard startingBoard, IBoardProcessor boardProcessor)
+        public GameState StartNewGame(GameState initialGameState)
         {
-            GameState = new GameState(startingBoard, boardProcessor);
+            GameState = initialGameState;
             return GameState;
         }
         
