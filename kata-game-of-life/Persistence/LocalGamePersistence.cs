@@ -79,7 +79,7 @@ namespace kata_game_of_life.Persistence
         {
             var path = $"{Configuration.DefaultSaveDirectory}{saveFileName}";
             
-            File.WriteAllTextAsync(path, JsonConvert.SerializeObject(persistedGameState));
+            File.WriteAllText(path, JsonConvert.SerializeObject(persistedGameState));
         }
         
         private static string AddFileNameExtension(string fileName)

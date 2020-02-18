@@ -45,7 +45,7 @@ namespace kata_game_of_life.Boards
                 {
                     for (var z = 0; z < 10; z++)
                     {
-                        cells[x, y, z] = random.Next(0, 100) > 70 ? new Cell(CellState.Alive) : new Cell(CellState.Dead);
+                        cells[x, y, z] = random.Next(0, 100) > Configuration.DefaultAlivePercent ? new Cell(CellState.Alive) : new Cell(CellState.Dead);
                     }
                 }
             }

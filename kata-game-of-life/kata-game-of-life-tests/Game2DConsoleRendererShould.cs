@@ -33,5 +33,39 @@ namespace kata_game_of_life_tests
             Assert.Equal(expectedString, renderString);
 
         }
+
+        [Fact]
+        public void GenerateBoardString_GetsCorrect3DBoardString_GivenGameState()
+        {
+            var cellArray = new [,,]
+            {
+                {
+                    {new Cell(0, CellState.Alive), new Cell(1, CellState.Alive)},
+                    {new Cell(0, CellState.Dead), new Cell(1, CellState.Alive)},
+                    {new Cell(0, CellState.Dead), new Cell(1, CellState.Alive)}
+                
+                },
+                {
+                    {new Cell(0, CellState.Alive), new Cell(1, CellState.Alive)},
+                    {new Cell(0, CellState.Dead), new Cell(1, CellState.Alive)},
+                    {new Cell(0, CellState.Dead), new Cell(1, CellState.Alive)}
+                }
+            };
+            
+            dynamic board = new ThreeDimensionalBoard(cellArray);
+            
+            var renderer = new ConsoleRenderer();
+
+            var renderString = renderer.GenerateBoardString(board);
+
+            var expectedString = "----\n" +
+                                 ".. | oo | \n" +
+                                 ".. | oo | \n" +
+                                 "oo | oo | \n" +
+                                 "----\n";
+
+            Assert.Equal(expectedString, renderString);
+
+        }
     }
 }

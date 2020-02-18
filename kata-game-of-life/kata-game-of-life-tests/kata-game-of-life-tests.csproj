@@ -18,4 +18,8 @@
       <ProjectReference Include="..\kata-game-of-life.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Data\Saved Boards" />
+    </ItemGroup>
+
 </Project>
