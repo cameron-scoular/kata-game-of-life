@@ -16,6 +16,17 @@ namespace kata_game_of_life.Boards
         
         public ThreeDimensionalBoard(Cell[,,] cellArray)
         {
+            SetupFields(cellArray);
+        }
+
+        public ThreeDimensionalBoard()
+        {
+            var cells = CreateRandomCells();
+            SetupFields(cells);
+        }
+
+        private void SetupFields(Cell[,,] cellArray)
+        {
             _cellArray = AssignCellIds(cellArray);
             _maxX = _cellArray.GetLength(0);
             _maxY = _cellArray.GetLength(1);
@@ -23,6 +34,25 @@ namespace kata_game_of_life.Boards
             _iteratorId = 0;
         }
         
+        private Cell[,,] CreateRandomCells()
+        {
+            var cells = new Cell[10, 10, 10];
+            var random = new Random();
+
+            for (var x = 0; x < 10; x++)
+            {
+                for (var y = 0; y < 10; y++)
+                {
+                    for (var z = 0; z < 10; z++)
+                    {
+                        cells[x, y, z] = random.Next(0, 100) > 70 ? new Cell(CellState.Alive) : new Cell(CellState.Dead);
+                    }
+                }
+            }
+
+            return cells;
+        }
+
         private Cell[,,] AssignCellIds(Cell[,,] cellArray)
         {
             var id = 0;

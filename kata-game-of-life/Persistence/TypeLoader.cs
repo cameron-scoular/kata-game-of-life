@@ -16,7 +16,7 @@ namespace kata_game_of_life.Persistence
             {typeof(ThreeDimensionalBoard), LoadThreeDimensionalBoard},
         };
         
-        public static Dictionary<Type, Func<IBoardProcessor>> BoardProcessorMappings = new Dictionary<Type, Func<IBoardProcessor>>()
+        public static Dictionary<Type, Func<int, IBoardProcessor>> BoardProcessorMappings = new Dictionary<Type, Func<int, IBoardProcessor>>()
         {
             {typeof(DefaultBoardProcessor), LoadDefaultBoardProcessor}
         };
@@ -32,9 +32,9 @@ namespace kata_game_of_life.Persistence
             return new ThreeDimensionalBoard((Cell[,,])cellArrayState.ToObject<Cell[,,]>());
         }
         
-        public static IBoardProcessor LoadDefaultBoardProcessor()
+        public static IBoardProcessor LoadDefaultBoardProcessor(int dimensions)
         {
-            return new DefaultBoardProcessor();
+            return new DefaultBoardProcessor(Configuration.DimensionDefaultRulesetDictionary[dimensions].Item2);
         }
     }
 }

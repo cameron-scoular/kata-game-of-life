@@ -1,7 +1,5 @@
-using kata_game_of_life;
 using kata_game_of_life.Boards;
 using kata_game_of_life.GameRenderers;
-using kata_game_of_life.Processors;
 using kata_game_of_life.State;
 using Xunit;
 

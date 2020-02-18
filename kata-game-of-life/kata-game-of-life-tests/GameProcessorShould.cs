@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-using kata_game_of_life;
 using kata_game_of_life.Boards;
 using kata_game_of_life.Processors;
 using kata_game_of_life.State;
@@ -24,7 +22,7 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(emptyCellArray);
             
-            var boardProcessor = new DefaultBoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor("2333");
             var gameProcessor = new GameProcessor(0);
             
             var board = new TwoDimensionalBoard(emptyCellArray);
@@ -49,7 +47,7 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(emptyBoard);
             
-            var boardProcessor = new DefaultBoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor("2333");
             var gameProcessor = new GameProcessor(0);
             
             var board = new TwoDimensionalBoard(emptyBoard);
@@ -75,7 +73,7 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(cellArray);
             
-            var boardProcessor = new DefaultBoardProcessor();    
+            var boardProcessor = new DefaultBoardProcessor("2333");    
             var gameProcessor = new GameProcessor(0);
             
             var board = new TwoDimensionalBoard(cellArray);
@@ -107,7 +105,7 @@ namespace kata_game_of_life_tests
                 {new Cell(20, CellState.Dead), new Cell(21, CellState.Dead), new Cell(22, CellState.Dead), new Cell(23, CellState.Dead), new Cell(24, CellState.Dead)}
             };
             
-            var boardProcessor = new DefaultBoardProcessor();    
+            var boardProcessor = new DefaultBoardProcessor("2333");    
             var gameProcessor = new GameProcessor(0);
             
             var board = new TwoDimensionalBoard(cellArray);
@@ -131,7 +129,7 @@ namespace kata_game_of_life_tests
 
             var expectedSerializedCellArray = JsonConvert.SerializeObject(emptyCellArray);
             
-            var boardProcessor = new DefaultBoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor("4555");
             var gameProcessor = new GameProcessor(0);
             
             var board = new ThreeDimensionalBoard(emptyCellArray);
@@ -146,15 +144,53 @@ namespace kata_game_of_life_tests
         [Fact]
         public void GetNextBoard_Gets3DBoard_Given3DBoard()
         {
-            var cellArray = new Cell[2, 2, 2]
+            var cellArray = new [,,]
             {
-                {{new Cell(0, CellState.Alive),  new Cell(1, CellState.Alive)}, {new Cell(2, CellState.Dead),  new Cell(3, CellState.Dead)}},
-                {{new Cell(4, CellState.Dead),  new Cell(5, CellState.Dead)}, {new Cell(6, CellState.Dead),  new Cell(7, CellState.Dead)}}
+                {
+                    {new Cell(0, CellState.Dead),  new Cell(1, CellState.Dead)}, {new Cell(2, CellState.Dead),  new Cell(3, CellState.Dead)}, 
+                    {new Cell(4, CellState.Dead),  new Cell(5, CellState.Dead)}, {new Cell(6, CellState.Dead),  new Cell(7, CellState.Dead)},
+                    {new Cell(8, CellState.Dead),  new Cell(9, CellState.Dead)}, {new Cell(10, CellState.Dead),  new Cell(11, CellState.Dead)}, 
+                    {new Cell(12, CellState.Dead),  new Cell(13, CellState.Dead)}, {new Cell(14, CellState.Dead),  new Cell(15, CellState.Dead)},
+                },
+                {
+                    {new Cell(16, CellState.Dead),  new Cell(17, CellState.Dead)}, {new Cell(18, CellState.Dead),  new Cell(19, CellState.Dead)}, 
+                    {new Cell(20, CellState.Dead),  new Cell(21, CellState.Alive)}, {new Cell(22, CellState.Alive),  new Cell(23, CellState.Dead)},
+                    {new Cell(24, CellState.Dead),  new Cell(25, CellState.Alive)}, {new Cell(26, CellState.Alive),  new Cell(27, CellState.Dead)}, 
+                    {new Cell(28, CellState.Dead),  new Cell(29, CellState.Dead)}, {new Cell(30, CellState.Dead),  new Cell(31, CellState.Dead)},
+                },
+                {
+                    {new Cell(32, CellState.Dead),  new Cell(33, CellState.Dead)}, {new Cell(34, CellState.Dead),  new Cell(35, CellState.Dead)}, 
+                    {new Cell(36, CellState.Dead),  new Cell(37, CellState.Dead)}, {new Cell(38, CellState.Dead),  new Cell(39, CellState.Dead)},
+                    {new Cell(40, CellState.Dead),  new Cell(41, CellState.Dead)}, {new Cell(42, CellState.Dead),  new Cell(43, CellState.Dead)}, 
+                    {new Cell(44, CellState.Dead),  new Cell(45, CellState.Dead)}, {new Cell(46, CellState.Dead),  new Cell(47, CellState.Dead)},
+                },
+            };
+            
+            var expectedCellArray = new [,,]
+            {
+                {
+                    {new Cell(0, CellState.Dead),  new Cell(1, CellState.Dead)}, {new Cell(2, CellState.Dead),  new Cell(3, CellState.Dead)}, 
+                    {new Cell(4, CellState.Dead),  new Cell(5, CellState.Dead)}, {new Cell(6, CellState.Alive),  new Cell(7, CellState.Dead)},
+                    {new Cell(8, CellState.Dead),  new Cell(9, CellState.Alive)}, {new Cell(10, CellState.Dead),  new Cell(11, CellState.Dead)}, 
+                    {new Cell(12, CellState.Dead),  new Cell(13, CellState.Dead)}, {new Cell(14, CellState.Dead),  new Cell(15, CellState.Dead)},
+                },
+                {
+                    {new Cell(16, CellState.Dead),  new Cell(17, CellState.Dead)}, {new Cell(18, CellState.Dead),  new Cell(19, CellState.Dead)}, 
+                    {new Cell(20, CellState.Dead),  new Cell(21, CellState.Dead)}, {new Cell(22, CellState.Alive),  new Cell(23, CellState.Dead)},
+                    {new Cell(24, CellState.Dead),  new Cell(25, CellState.Alive)}, {new Cell(26, CellState.Dead),  new Cell(27, CellState.Dead)}, 
+                    {new Cell(28, CellState.Dead),  new Cell(29, CellState.Dead)}, {new Cell(30, CellState.Dead),  new Cell(31, CellState.Dead)},
+                },
+                {
+                    {new Cell(32, CellState.Dead),  new Cell(33, CellState.Dead)}, {new Cell(34, CellState.Dead),  new Cell(35, CellState.Dead)}, 
+                    {new Cell(36, CellState.Dead),  new Cell(37, CellState.Dead)}, {new Cell(38, CellState.Alive),  new Cell(39, CellState.Dead)},
+                    {new Cell(40, CellState.Dead),  new Cell(41, CellState.Alive)}, {new Cell(42, CellState.Dead),  new Cell(43, CellState.Dead)}, 
+                    {new Cell(44, CellState.Dead),  new Cell(45, CellState.Dead)}, {new Cell(46, CellState.Dead),  new Cell(47, CellState.Dead)},
+                },
             };
 
-            var expectedSerializedCellArray = JsonConvert.SerializeObject(cellArray);
+            var expectedSerializedCellArray = JsonConvert.SerializeObject(expectedCellArray);
             
-            var boardProcessor = new DefaultBoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor("4555");
             var gameProcessor = new GameProcessor(0);
             
             var board = new ThreeDimensionalBoard(cellArray);
@@ -172,7 +208,7 @@ namespace kata_game_of_life_tests
             var cellArray = new Cell[2, 2, 2]
             {
                 {{new Cell(0, CellState.Alive),  new Cell(1, CellState.Dead)}, {new Cell(2, CellState.Dead),  new Cell(3, CellState.Dead)}},
-                {{new Cell(4, CellState.Dead),  new Cell(5, CellState.Dead)}, {new Cell(6, CellState.Alive),  new Cell(7, CellState.Dead)}}
+                {{new Cell(4, CellState.Dead),  new Cell(5, CellState.Dead)}, {new Cell(6, CellState.Dead),  new Cell(7, CellState.Dead)}}
             };
             
             var emptyArray = new Cell[2, 2, 2]
@@ -181,7 +217,7 @@ namespace kata_game_of_life_tests
                 {{new Cell(4, CellState.Dead),  new Cell(5, CellState.Dead)}, {new Cell(6, CellState.Dead),  new Cell(7, CellState.Dead)}}
             };
             
-            var boardProcessor = new DefaultBoardProcessor();
+            var boardProcessor = new DefaultBoardProcessor("4555");
             var gameProcessor = new GameProcessor(0);
             
             var board = new ThreeDimensionalBoard(cellArray);

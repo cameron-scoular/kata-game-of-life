@@ -7,7 +7,24 @@ namespace kata_game_of_life.Processors
 {
     public class DefaultBoardProcessor : IBoardProcessor
     {
+
+
+        public int AliveToAliveLowerBound { get; }
+        public int DeadToAliveUpperBound { get; }
+        public int DeadToAliveLowerBound { get; }
+        public int AliveToAliveUpperBound { get; }
         
+
+        public DefaultBoardProcessor(string ruleSet)
+        {
+            AliveToAliveLowerBound = int.Parse(ruleSet[0].ToString());
+            AliveToAliveUpperBound = int.Parse(ruleSet[1].ToString());
+            DeadToAliveLowerBound = int.Parse(ruleSet[2].ToString());
+            DeadToAliveUpperBound = int.Parse(ruleSet[3].ToString());
+        }
+
+        
+
         public IBoard GetNextBoard(IBoard board)
         {
             var adjacencyCountDictionary = ConstructAdjacencyCountDictionary(board);
@@ -29,12 +46,17 @@ namespace kata_game_of_life.Processors
 
         private CellState GetNewCellState(CellState initialCellState, int adjacentCellCount)
         {
+
             switch (initialCellState)
             {
                 case CellState.Alive:
-                    return adjacentCellCount >= 2 && adjacentCellCount <= 3 ? CellState.Alive : CellState.Dead;
+                    return adjacentCellCount >= AliveToAliveLowerBound && adjacentCellCount <= AliveToAliveUpperBound
+                        ? CellState.Alive
+                        : CellState.Dead;
                 case CellState.Dead:
-                    return adjacentCellCount == 3 ? CellState.Alive : CellState.Dead;
+                    return adjacentCellCount >= DeadToAliveLowerBound && adjacentCellCount <= DeadToAliveUpperBound 
+                        ? CellState.Alive 
+                        : CellState.Dead;
                 default:
                     throw new Exception();
             }

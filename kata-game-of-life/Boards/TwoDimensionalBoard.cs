@@ -8,9 +8,9 @@ namespace kata_game_of_life.Boards
     public class TwoDimensionalBoard : IBoard
     {
 
-        private readonly Cell[,] _cellArray;
-        private readonly int _maxX;
-        private readonly int _maxY;
+        private Cell[,] _cellArray;
+        private int _maxX;
+        private int _maxY;
         private int _iteratorId;
 
         public TwoDimensionalBoard(Cell[,] cellArray)
@@ -18,6 +18,20 @@ namespace kata_game_of_life.Boards
             _cellArray = AssignCellIds(cellArray);
             _maxX = cellArray.GetLength(0);
             _maxY = cellArray.GetLength(1);
+            _iteratorId = 0;
+        }
+
+        public TwoDimensionalBoard()
+        {
+            var cells = CreateRandomCells();
+            SetupFields(cells);
+        }
+
+        private void SetupFields(Cell[,] cellArray)
+        {
+            _cellArray = AssignCellIds(cellArray);
+            _maxX = _cellArray.GetLength(0);
+            _maxY = _cellArray.GetLength(1);
             _iteratorId = 0;
         }
 
@@ -33,6 +47,22 @@ namespace kata_game_of_life.Boards
             return cellArray;
         }
         
+        private Cell[,] CreateRandomCells()
+        {
+            var cells = new Cell[10, 10];
+            var random = new Random();
+
+            for (var x = 0; x < 10; x++)
+            {
+                for (var y = 0; y < 10; y++)
+                {
+                    cells[x, y] = random.Next(0, 100) > 70 ? new Cell(CellState.Alive) : new Cell(CellState.Dead);
+                }
+            }
+
+            return cells;
+        }
+
         public Cell GetCell(int cellId)
         {
             var (x, y) = GetCoordinates(cellId);

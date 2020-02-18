@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace kata_game_of_life
 {
@@ -13,7 +11,7 @@ namespace kata_game_of_life
             {
                 LoadFileName = ParseStringArgument(args, "-l"),
                 SaveFileName = ParseStringArgument(args, "-s"),
-                DefaultDimensions = Convert.ToInt32(ParseStringArgument(args, "-d"))
+                DefaultDimensions = Convert.ToInt32(ParseStringArgument(args, "-d")),
             };
 
         }

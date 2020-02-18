@@ -1,5 +1,4 @@
 using System.Threading;
-using kata_game_of_life.Interfaces;
 using kata_game_of_life.State;
 
 namespace kata_game_of_life.Processors

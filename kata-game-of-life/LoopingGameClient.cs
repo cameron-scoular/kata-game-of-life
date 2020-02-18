@@ -1,9 +1,6 @@
-using kata_game_of_life.Boards;
 using kata_game_of_life.Interfaces;
-using kata_game_of_life.Persistence;
 using kata_game_of_life.Processors;
 using kata_game_of_life.State;
-using Newtonsoft.Json;
 
 namespace kata_game_of_life
 {
@@ -11,15 +8,15 @@ namespace kata_game_of_life
     {
         private readonly GameProcessor _gameProcessor;
         private readonly IGamePersistence _gamePersistence;
-        private readonly INewGameLoader _newGameLoader;
+        private readonly INewGameProvider _newGameProvider;
         private readonly IGameRenderer _renderer;
         private readonly string _savePath;
 
-        public LoopingGameClient(GameProcessor gameProcessor, IGamePersistence gamePersistence, INewGameLoader newGameLoader, IGameRenderer renderer, string savePath)
+        public LoopingGameClient(GameProcessor gameProcessor, IGamePersistence gamePersistence, INewGameProvider newGameProvider, IGameRenderer renderer, string savePath)
         {
             _gameProcessor = gameProcessor;
             _gamePersistence = gamePersistence;
-            _newGameLoader = newGameLoader;
+            _newGameProvider = newGameProvider;
             _renderer = renderer;
             _savePath = savePath;
         
@@ -54,7 +51,7 @@ namespace kata_game_of_life
             }
             else
             {
-                initialGameState = _newGameLoader.LoadNewGame(arguments);
+                initialGameState = _newGameProvider.LoadNewGame(arguments);
             }
 
             return initialGameState;
