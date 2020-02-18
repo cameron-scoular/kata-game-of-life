@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using kata_game_of_life.Boards;
 using kata_game_of_life.Interfaces;
@@ -11,7 +12,7 @@ namespace kata_game_of_life.Persistence
 
         public GameState LoadNewGame(Arguments arguments)
         {
-            if (arguments.DefaultDimensions != 0 || arguments.LoadFileName == null || arguments.LoadFileName == string.Empty)
+            if (arguments.DefaultDimensions.Count > 0 || arguments.LoadFileName == null || arguments.LoadFileName == string.Empty)
             {
                 return GetRandomNewGameState(arguments);
             }
@@ -23,15 +24,19 @@ namespace kata_game_of_life.Persistence
         {
             var cells = LoadNew2DCellArray(fileName);
             var board = new TwoDimensionalBoard(cells);
+            var ruleSet = Configuration.DimensionDefaultRulesetDictionary[2].Item2;
             
-            return new GameState(board, new DefaultBoardProcessor(Configuration.DimensionDefaultRulesetDictionary[2].Item2));
+            return new GameState(board, new DefaultBoardProcessor(ruleSet));
         }
 
         private GameState GetRandomNewGameState(Arguments arguments)
         {
-            var boardRules = Configuration.DimensionDefaultRulesetDictionary[arguments.DefaultDimensions];
-            var board = boardRules.Item1;
+            var boardRules = Configuration.DimensionDefaultRulesetDictionary[arguments.DefaultDimensions.Count];
+            var boardType = boardRules.Item1;
             var ruleSet = boardRules.Item2;
+
+            var board = (IBoard)Activator.CreateInstance(boardType, arguments.DefaultDimensions);
+            
             return new GameState(board, new DefaultBoardProcessor(ruleSet));
         }
         

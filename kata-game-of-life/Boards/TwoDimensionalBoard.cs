@@ -15,15 +15,12 @@ namespace kata_game_of_life.Boards
 
         public TwoDimensionalBoard(Cell[,] cellArray)
         {
-            _cellArray = AssignCellIds(cellArray);
-            _maxX = cellArray.GetLength(0);
-            _maxY = cellArray.GetLength(1);
-            _iteratorId = 0;
+            SetupFields(cellArray);
         }
 
-        public TwoDimensionalBoard()
+        public TwoDimensionalBoard(List<int> dimensions)
         {
-            var cells = CreateRandomCells();
+            var cells = CreateRandomCells(dimensions[0], dimensions[1]);
             SetupFields(cells);
         }
 
@@ -47,14 +44,14 @@ namespace kata_game_of_life.Boards
             return cellArray;
         }
         
-        private Cell[,] CreateRandomCells()
+        private Cell[,] CreateRandomCells(int xMax, int yMax)
         {
-            var cells = new Cell[10, 10];
+            var cells = new Cell[xMax, yMax];
             var random = new Random();
 
-            for (var x = 0; x < 10; x++)
+            for (var x = 0; x < xMax; x++)
             {
-                for (var y = 0; y < 10; y++)
+                for (var y = 0; y < yMax; y++)
                 {
                     cells[x, y] = random.Next(0, 100) > Configuration.DefaultAlivePercent ? new Cell(CellState.Alive) : new Cell(CellState.Dead);
                 }

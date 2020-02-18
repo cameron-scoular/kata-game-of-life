@@ -5,7 +5,7 @@ using Xunit;
 
 namespace kata_game_of_life_tests
 {
-    public class Game2DConsoleRendererShould
+    public class ConsoleRendererShould
     {
 
         [Fact]

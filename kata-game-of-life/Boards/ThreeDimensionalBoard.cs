@@ -19,9 +19,9 @@ namespace kata_game_of_life.Boards
             SetupFields(cellArray);
         }
 
-        public ThreeDimensionalBoard()
+        public ThreeDimensionalBoard(List<int> dimensions)
         {
-            var cells = CreateRandomCells();
+            var cells = CreateRandomCells(dimensions[0], dimensions[1], dimensions[2]);
             SetupFields(cells);
         }
 
@@ -34,16 +34,16 @@ namespace kata_game_of_life.Boards
             _iteratorId = 0;
         }
         
-        private Cell[,,] CreateRandomCells()
+        private Cell[,,] CreateRandomCells(int xMax, int yMax, int zMax)
         {
             var cells = new Cell[10, 10, 10];
             var random = new Random();
 
-            for (var x = 0; x < 10; x++)
+            for (var x = 0; x < xMax; x++)
             {
-                for (var y = 0; y < 10; y++)
+                for (var y = 0; y < yMax; y++)
                 {
-                    for (var z = 0; z < 10; z++)
+                    for (var z = 0; z < zMax; z++)
                     {
                         cells[x, y, z] = random.Next(0, 100) > Configuration.DefaultAlivePercent ? new Cell(CellState.Alive) : new Cell(CellState.Dead);
                     }

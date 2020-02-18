@@ -8,9 +8,7 @@ namespace kata_game_of_life_tests
 {
     public class GameProcessorShould
     {
-
-
-
+        
         [Fact]
         public void StartNewGame_GetsEmptyBoard_GivenNewGameWithEmptyBoard()
         {

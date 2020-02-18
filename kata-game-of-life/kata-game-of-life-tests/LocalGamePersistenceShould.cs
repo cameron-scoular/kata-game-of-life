@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using kata_game_of_life;
 using kata_game_of_life.Boards;
@@ -16,7 +17,7 @@ namespace kata_game_of_life_tests
         [Fact]
         public void SaveAndLoad_GameLoads2DCorrectly_AfterSaving()
         {
-            var gameStateToSave = new GameState(new TwoDimensionalBoard(), new DefaultBoardProcessor("2333"));
+            var gameStateToSave = new GameState(new TwoDimensionalBoard(new List<int>(){5, 5}), new DefaultBoardProcessor("2333"));
 
             var expectedLoadedGameStateString = JsonConvert.SerializeObject(gameStateToSave);
             var localGamePersistence = new LocalGamePersistence();
@@ -31,7 +32,7 @@ namespace kata_game_of_life_tests
         [Fact]
         public void FileIsPersistent_ReturnsTrue_AfterSaving()
         {
-            var gameStateToSave = new GameState(new TwoDimensionalBoard(), new DefaultBoardProcessor("2333"));
+            var gameStateToSave = new GameState(new TwoDimensionalBoard(new List<int>(){5, 5}), new DefaultBoardProcessor("2333"));
 
             var expectedLoadedGameStateString = JsonConvert.SerializeObject(gameStateToSave);
             var localGamePersistence = new LocalGamePersistence();

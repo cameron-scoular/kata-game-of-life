@@ -12,25 +12,25 @@ namespace kata_game_of_life_tests
         {
             new object[] {"-s testsave.life", new Arguments()
             {
-                DefaultDimensions = 0,
+                DefaultDimensions = null,
                 LoadFileName = null,
                 SaveFileName = "testsave.life"
             }},
             new object[] {"-s testsave.life -l testload.life", new Arguments()
             {
-                DefaultDimensions = 0,
+                DefaultDimensions = null,
                 LoadFileName = "testload.life",
                 SaveFileName = "testsave.life"
             }},
-            new object[] {"-d 2", new Arguments()
+            new object[] {"-d 5 5", new Arguments()
             {
-                DefaultDimensions = 2,
+                DefaultDimensions = new List<int>(){ 5, 5},
                 LoadFileName = null,
                 SaveFileName = null
             }},
-            new object[] {"-d 2 -d 3", new Arguments()
+            new object[] {"-d 2 2 2 2 -d 3", new Arguments()
             {
-                DefaultDimensions = 2,
+                DefaultDimensions = new List<int>(){ 2, 2, 2, 2 },
                 LoadFileName = null,
                 SaveFileName = null
             }},
