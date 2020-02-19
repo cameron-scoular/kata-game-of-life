@@ -15,7 +15,6 @@ namespace kata_game_of_life.GameRenderers
             
             Console.WriteLine(boardString);
             Console.WriteLine("Tick " + gameState.TickNumber);
-
         }
         
         public string GenerateBoardString(TwoDimensionalBoard board)

@@ -25,7 +25,7 @@ namespace kata_game_of_life.Persistence
             var loadBoardFunction = TypeLoader.BoardLoaderMappings[boardType];
             var board = loadBoardFunction(persistedGameState.CellArray);
             
-            var loadBoardProcessorFunction = TypeLoader.BoardProcessorMappings[boardProcessorType];
+            var loadBoardProcessorFunction = TypeLoader.BoardProcessorLoaderMappings[boardProcessorType];
             var dimensionCount = board.GetDimensions().Count;
             var boardProcessor = loadBoardProcessorFunction(dimensionCount);
 
@@ -34,7 +34,7 @@ namespace kata_game_of_life.Persistence
                 TickNumber = persistedGameState.TickNumber
             };
         }
-
+        
         public void SaveGame(GameState gameState, string fileName)
         {
             var fileNameWithExtension = AddFileNameExtension(fileName);

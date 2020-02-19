@@ -22,7 +22,7 @@ namespace kata_game_of_life.State
 
         public char GetRenderSymbol()
         {
-            return CellState == CellState.Alive ? Configuration.CellAliveRenderSymbol : Configuration.CellDeadRenderSymbol;
+            return CellState == CellState.Alive ? Configuration.CellAliveSymbol : Configuration.CellDeadSymbol;
         }
 
     }

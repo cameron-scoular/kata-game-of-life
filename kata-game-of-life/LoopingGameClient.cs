@@ -34,11 +34,16 @@ namespace kata_game_of_life
                 var nextGameState = _gameProcessor.Tick();
                 _renderer.Render(initialGameState);
                 
-                if (_savePath != null && nextGameState.TickNumber % Configuration.TicksUntilSave == 0)
+                if (ShouldSaveGame(nextGameState))
                 {
                     _gamePersistence.SaveGame(nextGameState, _savePath);
                 }
             }
+        }
+
+        private bool ShouldSaveGame(GameState nextGameState)
+        {
+            return _savePath != null && nextGameState.TickNumber % Configuration.TicksUntilSave == 0;
         }
 
         private GameState LoadInitialGameState(Arguments arguments)

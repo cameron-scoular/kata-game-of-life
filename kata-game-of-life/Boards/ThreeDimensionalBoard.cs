@@ -116,19 +116,13 @@ namespace kata_game_of_life.Boards
                 {
                     for (var zDelta = -1; zDelta <= 1; zDelta++)
                     {
-                        if (xDelta != 0 || yDelta != 0 || zDelta != 0)
+                        if (xDelta == 0 && yDelta == 0 && zDelta == 0) continue;
+                        
+                        var adjacentCell = GetAdjacentCell(cellId, xDelta, yDelta, zDelta);
+                        
+                        if (adjacentCell.CellState == cellStateToCount)
                         {
-                            var (x, y, z) = GetCoordinates(cellId);
-
-                            var adjacentX = Modulus((x + xDelta), _maxX);
-                            var adjacentY = Modulus((y + yDelta), _maxY);
-                            var adjacentZ = Modulus((z + zDelta), _maxZ);
-                            
-                            var adjacentCell = _cellArray[adjacentX, adjacentY, adjacentZ];
-                            if (adjacentCell.CellState == cellStateToCount)
-                            {
-                                adjacencyCount++;
-                            }
+                            adjacencyCount++;
                         }
                     }
                 }
@@ -136,6 +130,18 @@ namespace kata_game_of_life.Boards
 
             return adjacencyCount;
             
+        }
+
+        private Cell GetAdjacentCell(int cellId, int xDelta, int yDelta, int zDelta)
+        {
+            var (x, y, z) = GetCoordinates(cellId);
+
+            var adjacentX = Modulus((x + xDelta), _maxX);
+            var adjacentY = Modulus((y + yDelta), _maxY);
+            var adjacentZ = Modulus((z + zDelta), _maxZ);
+
+            var adjacentCell = _cellArray[adjacentX, adjacentY, adjacentZ];
+            return adjacentCell;
         }
 
         public object GetCellArray()

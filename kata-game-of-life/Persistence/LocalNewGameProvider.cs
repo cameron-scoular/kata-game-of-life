@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using kata_game_of_life.Boards;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Processors;
@@ -24,14 +27,15 @@ namespace kata_game_of_life.Persistence
         {
             var cells = LoadNew2DCellArray(fileName);
             var board = new TwoDimensionalBoard(cells);
-            var ruleSet = Configuration.DimensionDefaultRulesetDictionary[2].Item2;
+            
+            var ruleSet = Configuration.DefaultDimensionRulesetDictionary[2].Item2;
             
             return new GameState(board, new DefaultBoardProcessor(ruleSet));
         }
 
         private GameState GetRandomNewGameState(Arguments arguments)
         {
-            var boardRules = Configuration.DimensionDefaultRulesetDictionary[arguments.DefaultDimensions.Count];
+            var boardRules = Configuration.DefaultDimensionRulesetDictionary[arguments.DefaultDimensions.Count];
             var boardType = boardRules.Item1;
             var ruleSet = boardRules.Item2;
 
@@ -40,7 +44,6 @@ namespace kata_game_of_life.Persistence
             return new GameState(board, new DefaultBoardProcessor(ruleSet));
         }
         
-
         private static Cell[,] LoadNew2DCellArray(string fileName)
         {
             var path = $"{Configuration.DefaultNewDirectory}{fileName}";
@@ -58,7 +61,7 @@ namespace kata_game_of_life.Persistence
                 {
                     var coordinateCharacter = rowStrings[y][x];
 
-                    var newCellState = coordinateCharacter == Configuration.CellAliveRenderSymbol ? CellState.Alive : CellState.Dead;
+                    var newCellState = coordinateCharacter == Configuration.CellAliveSymbol ? CellState.Alive : CellState.Dead;
                     var cellId = y * maxX + x;
                     board[maxX - x - 1, maxY - y - 1] = new Cell(cellId, newCellState);
                 }
