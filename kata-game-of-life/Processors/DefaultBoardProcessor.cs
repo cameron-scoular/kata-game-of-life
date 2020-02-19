@@ -14,9 +14,12 @@ namespace kata_game_of_life.Processors
         public int DeadToAliveLowerBound { get; }
         public int AliveToAliveUpperBound { get; }
         
+        public string RuleSet { get; }
+        
 
         public DefaultBoardProcessor(string ruleSet)
         {
+            RuleSet = ruleSet;
             AliveToAliveLowerBound = int.Parse(ruleSet[0].ToString());
             AliveToAliveUpperBound = int.Parse(ruleSet[1].ToString());
             DeadToAliveLowerBound = int.Parse(ruleSet[2].ToString());

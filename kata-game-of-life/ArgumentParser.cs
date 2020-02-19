@@ -20,7 +20,7 @@ namespace kata_game_of_life
         private static List<int> ParseDimensions(string[] args)
         {
             var defaultOptionIndex = Array.FindIndex(args, x => x == "-d");
-            if (defaultOptionIndex == -1) return null;
+            if (defaultOptionIndex == -1) return new List<int>(){ 10, 10 };
 
             var dimensionList = new List<int>();
             var argIndex = defaultOptionIndex + 1;

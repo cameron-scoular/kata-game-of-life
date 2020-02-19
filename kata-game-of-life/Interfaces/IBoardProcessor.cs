@@ -4,6 +4,7 @@ namespace kata_game_of_life.Interfaces
     {
 
         IBoard GetNextBoard(IBoard board);
-
+        
+        string RuleSet { get;}
     }
 }

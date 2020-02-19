@@ -6,9 +6,7 @@ namespace kata_game_of_life.Interfaces
     public interface IBoard
     {
         Cell GetCell(int cellId);
-        
         object GetCellArray();
-        
         List<int> GetDimensions();
 
         int GetAdjacentCellCount(CellState cellStateToCount, int cellId);

@@ -43,6 +43,7 @@ namespace kata_game_of_life.Persistence
             {
                 BoardType = gameState.Board.GetType().ToString(),
                 BoardProcessorType = gameState.BoardProcessor.GetType().ToString(),
+                RuleSet = gameState.BoardProcessor.RuleSet,
                 TickNumber = gameState.TickNumber,
                 CellArray = gameState.Board.GetCellArray()
             };
