@@ -8,7 +8,6 @@ namespace kata_game_of_life
     {
         public static char CellAliveSymbol = 'o';
         public static char CellDeadSymbol = '.';
-        public static char PersistenceDimensionSeparatorSymbol = ',';
         public static uint TicksUntilSave = 10;
         public static int TickPeriod = 1000;
         public static int DefaultAlivePercent = 70;
