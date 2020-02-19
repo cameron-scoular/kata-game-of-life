@@ -51,7 +51,7 @@ namespace kata_game_of_life.Persistence
             SaveGameState(persistedBoardState, fileNameWithExtension);
         }
         
-        public bool FileIsPersistent(string fileName)
+        public bool FileHasBeenSaved(string fileName)
         {
             var fileNameWithExtension = AddFileNameExtension(fileName);
 

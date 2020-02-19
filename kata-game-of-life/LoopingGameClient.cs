@@ -50,7 +50,7 @@ namespace kata_game_of_life
         {
             GameState initialGameState;
 
-            if (arguments.LoadFileName != null && _gamePersistence.FileIsPersistent(arguments.LoadFileName))
+            if (arguments.LoadFileName != null && _gamePersistence.FileHasBeenSaved(arguments.LoadFileName))
             {
                 initialGameState = _gamePersistence.LoadGame(arguments.LoadFileName);
             }

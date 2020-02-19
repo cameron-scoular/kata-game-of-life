@@ -38,7 +38,7 @@ namespace kata_game_of_life_tests
             var localGamePersistence = new LocalGamePersistence();
             localGamePersistence.SaveGame(gameStateToSave, TestFileName);
             
-            Assert.True(localGamePersistence.FileIsPersistent(TestFileName));
+            Assert.True(localGamePersistence.FileHasBeenSaved(TestFileName));
             
             File.Delete($"{Configuration.DefaultSaveDirectory}{TestFileName}");
         }
@@ -48,7 +48,7 @@ namespace kata_game_of_life_tests
         {
             var localGamePersistence = new LocalGamePersistence();
          
-            Assert.False(localGamePersistence.FileIsPersistent("yeet.txt"));
+            Assert.False(localGamePersistence.FileHasBeenSaved("yeet.txt"));
         }
         
         

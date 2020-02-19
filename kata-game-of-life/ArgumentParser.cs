@@ -8,19 +8,22 @@ namespace kata_game_of_life
 
         public static Arguments ParseArguments(string[] args)
         {
-            return new Arguments()
+            var argumentObject = new Arguments()
             {
                 LoadFileName = ParseStringArgument(args, "-l"),
                 SaveFileName = ParseStringArgument(args, "-s"),
-                DefaultDimensions = ParseDimensions(args),
             };
 
+            var loadFileExists = argumentObject.LoadFileName != null;
+            argumentObject.DefaultDimensions = ParseDimensions(args, loadFileExists);
+
+            return argumentObject;
         }
 
-        private static List<int> ParseDimensions(string[] args)
+        private static List<int> ParseDimensions(string[] args, bool LoadFileExists)
         {
             var defaultOptionIndex = Array.FindIndex(args, x => x == "-d");
-            if (defaultOptionIndex == -1) return new List<int>(){ 10, 10 };
+            if (defaultOptionIndex == -1 && !LoadFileExists) return new List<int>(){ 10, 10 };
 
             var dimensionList = new List<int>();
             var argIndex = defaultOptionIndex + 1;

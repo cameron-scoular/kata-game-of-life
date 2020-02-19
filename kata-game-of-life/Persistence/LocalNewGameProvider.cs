@@ -15,16 +15,23 @@ namespace kata_game_of_life.Persistence
 
         public GameState LoadNewGame(Arguments arguments)
         {
-            if (arguments.DefaultDimensions.Count > 0 || arguments.LoadFileName == null || arguments.LoadFileName == string.Empty)
+            
+            if (LoadingArgumentsAreNotSpecified(arguments))
             {
-                return GetRandomNewGameState(arguments);
+                return LoadDefaultNewGameState(arguments);
             }
 
             return LoadNewGameFile(arguments.LoadFileName);
         }
 
+        private static bool LoadingArgumentsAreNotSpecified(Arguments arguments)
+        {
+            return arguments.DefaultDimensions.Count > 0 || arguments.LoadFileName == null || arguments.LoadFileName == string.Empty;
+        }
+
         private GameState LoadNewGameFile(string fileName)
         {
+            
             var cells = LoadNew2DCellArray(fileName);
             var board = new TwoDimensionalBoard(cells);
             
@@ -33,7 +40,7 @@ namespace kata_game_of_life.Persistence
             return new GameState(board, new DefaultBoardProcessor(ruleSet));
         }
 
-        private GameState GetRandomNewGameState(Arguments arguments)
+        private GameState LoadDefaultNewGameState(Arguments arguments)
         {
             var boardRules = Configuration.DefaultDimensionRulesetDictionary[arguments.DefaultDimensions.Count];
             var boardType = boardRules.Item1;
