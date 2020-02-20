@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.State;
@@ -12,7 +13,7 @@ namespace kata_game_of_life.GameRenderers
         {
             var boardString = GenerateBoardString(gameState);
             var lineBreakerLength = gameState.Board.GetDimensions()[0];
-            var lineBreaker = GetLineBreaker(lineBreakerLength);
+            var lineBreaker = GetLineBreaker(gameState.Board.GetDimensions());
             
             Console.WriteLine(lineBreaker);
             Console.WriteLine(boardString);
@@ -22,8 +23,7 @@ namespace kata_game_of_life.GameRenderers
 
         public string GenerateBoardString(GameState gameState)
         {
-            var lineBreakerLength = gameState.Board.GetDimensions()[0] * gameState.Board.GetDimensions()[2];
-            var lineBreaker = GetLineBreaker(lineBreakerLength);
+            var lineBreaker = GetLineBreaker(gameState.Board.GetDimensions());
 
             var boardString = new StringBuilder();
             boardString.AppendLine(lineBreaker);
@@ -53,11 +53,13 @@ namespace kata_game_of_life.GameRenderers
             return boardString.ToString();
         }
 
-        private string GetLineBreaker(int breakerLength)
+        private string GetLineBreaker(List<int> dimensions)
         {
+            var lineBreakerLength = (dimensions[0] + 3) * dimensions[2];
+
             var line = string.Empty;
 
-            for (var i = 0; i < breakerLength; i++)
+            for (var i = 0; i < lineBreakerLength; i++)
             {
                 line += "-";
             }

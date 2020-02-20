@@ -8,6 +8,13 @@ namespace kata_game_of_life.Persistence
 {
     public class LocalGamePersistence : IGamePersistence
     {
+        private readonly IBoardLoaderFactory _boardLoaderFactory;
+
+        public LocalGamePersistence(IBoardLoaderFactory boardLoaderFactory)
+        {
+            _boardLoaderFactory = boardLoaderFactory;
+        }
+        
         public GameState LoadGame(string fileName)
         {
             var fileNameWithExtension = AddFileNameExtension(fileName);
@@ -22,10 +29,11 @@ namespace kata_game_of_life.Persistence
             var boardType = Type.GetType(persistedGameState.BoardType);
             var boardProcessorType = Type.GetType(persistedGameState.BoardProcessorType);
 
-            var loadBoardFunction = TypeLoader.BoardLoaderMappings[boardType];
+            var loadBoardFunction = _boardLoaderFactory.CreateBoardLoader(boardType);
+            var loadBoardProcessorFunction = _boardLoaderFactory.CreateBoardProcessorLoader(boardProcessorType);
+            
             var board = loadBoardFunction(persistedGameState.CellArray);
             
-            var loadBoardProcessorFunction = TypeLoader.BoardProcessorLoaderMappings[boardProcessorType];
             var dimensionCount = board.GetDimensions().Count;
             var boardProcessor = loadBoardProcessorFunction(dimensionCount);
 

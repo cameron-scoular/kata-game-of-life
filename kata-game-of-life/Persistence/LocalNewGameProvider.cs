@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using kata_game_of_life.Boards;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Processors;

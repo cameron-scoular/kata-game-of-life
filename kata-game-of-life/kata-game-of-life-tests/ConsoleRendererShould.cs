@@ -21,7 +21,7 @@ namespace kata_game_of_life_tests
             
             dynamic board = new TwoDimensionalBoard(cellArray);
             
-            var renderer = new ConsoleRenderer();
+            var renderer = new TwoDimensionalConsoleRenderer();
 
             var renderString = renderer.GenerateBoardString(board);
 
@@ -54,7 +54,7 @@ namespace kata_game_of_life_tests
             
             dynamic board = new ThreeDimensionalBoard(cellArray);
             
-            var renderer = new ConsoleRenderer();
+            var renderer = new ThreeDimensionalConsoleRenderer();
 
             var renderString = renderer.GenerateBoardString(board);
 
