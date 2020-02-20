@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using kata_game_of_life.Boards;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Processors;
@@ -18,9 +19,9 @@ namespace kata_game_of_life.Persistence
             return new ThreeDimensionalBoard((Cell[,,])cellArrayState.ToObject<Cell[,,]>());
         }
         
-        public static IBoardProcessor LoadDefaultBoardProcessor(int dimensions)
+        public static IBoardProcessor LoadDefaultBoardProcessor(RuleSet ruleSet)
         {
-            return new DefaultBoardProcessor(Configuration.DefaultDimensionRulesetDictionary[dimensions].Item2);
+            return new DefaultBoardProcessor(ruleSet);
         }
     }
 }

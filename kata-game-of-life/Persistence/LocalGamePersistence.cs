@@ -34,8 +34,7 @@ namespace kata_game_of_life.Persistence
             
             var board = loadBoardFunction(persistedGameState.CellArray);
             
-            var dimensionCount = board.GetDimensions().Count;
-            var boardProcessor = loadBoardProcessorFunction(dimensionCount);
+            var boardProcessor = loadBoardProcessorFunction(persistedGameState.RuleSet);
 
             return new GameState(board, boardProcessor)
             {

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using kata_game_of_life.Boards;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Processors;
@@ -31,17 +32,17 @@ namespace kata_game_of_life.Persistence
             
             var cells = LoadNew2DCellArray(fileName);
             var board = new TwoDimensionalBoard(cells);
-            
-            var ruleSet = Configuration.DefaultDimensionRulesetDictionary[2].Item2;
+
+            var ruleSet = Configuration.DefaultRuleSets.First(r => r.Key == board.GetDimensions().Count).Value;
             
             return new GameState(board, new DefaultBoardProcessor(ruleSet));
         }
 
         private GameState LoadDefaultNewGameState(Arguments arguments)
         {
-            var boardRules = Configuration.DefaultDimensionRulesetDictionary[arguments.DefaultDimensions.Count];
-            var boardType = boardRules.Item1;
-            var ruleSet = boardRules.Item2;
+            var boardRules = Configuration.DefaultRuleSets.First(r => r.Key == arguments.DefaultDimensions.Count);
+            var boardType = Configuration.DefaultBoards.First(t => t.Key == arguments.DefaultDimensions.Count).Value;
+            var ruleSet = boardRules.Value;
 
             var board = (IBoard)Activator.CreateInstance(boardType, arguments.DefaultDimensions);
             

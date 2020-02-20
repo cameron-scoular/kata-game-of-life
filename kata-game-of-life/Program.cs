@@ -36,7 +36,7 @@ namespace kata_game_of_life
             var threeDimensionalBoardLoadFunction = new Func<object, IBoard>(TypeLoader.LoadThreeDimensionalBoard);
             componentRegister.RegisterComponent<Func<object, IBoard>>(typeof(ThreeDimensionalBoard), threeDimensionalBoardLoadFunction);
 
-            var defaultBoardProcessorLoadFunction = new Func<int, IBoardProcessor>(TypeLoader.LoadDefaultBoardProcessor); 
+            var defaultBoardProcessorLoadFunction = new Func<RuleSet, IBoardProcessor>(TypeLoader.LoadDefaultBoardProcessor); 
             componentRegister.RegisterComponent<Func<object, IBoardProcessor>>(typeof(TwoDimensionalBoard), defaultBoardProcessorLoadFunction);
             
             var twoDimensionalConsoleRenderer = new TwoDimensionalConsoleRenderer();
@@ -45,6 +45,7 @@ namespace kata_game_of_life
             var threeDimensionalConsoleRenderer = new ThreeDimensionalConsoleRenderer();
             componentRegister.RegisterComponent<IGameRenderer>(typeof(ThreeDimensionalBoard), threeDimensionalConsoleRenderer);
             
+            componentRegister.RegisterComponent<Type>(typeof(TwoDimensionalBoard), 2);
         }
 
     }

@@ -15,10 +15,16 @@ namespace kata_game_of_life
         public static string DefaultSaveDirectory = "../../../Data/Saved Boards/";
         public static string DefaultNewDirectory = "../../../Data/New Boards/";
 
-        public static Dictionary<int, Tuple<Type, string>> DefaultDimensionRulesetDictionary = new Dictionary<int, Tuple<Type, string>>()
+        public static Dictionary<int, RuleSet> DefaultRuleSets = new Dictionary<int, RuleSet>()
         {
-            {2, new Tuple<Type, string>(typeof(TwoDimensionalBoard), "2333")},
-            {3, new Tuple<Type, string>(typeof(ThreeDimensionalBoard), "4555")},
+            {2, new RuleSet("2333")},
+            {3, new RuleSet("4555")}
+        };
+        
+        public static Dictionary<int, Type> DefaultBoards = new Dictionary<int, Type>()
+        {
+            {2, typeof(TwoDimensionalBoard)},
+            {3, typeof(ThreeDimensionalBoard)}
         };
         
     }

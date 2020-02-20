@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using kata_game_of_life;
 using kata_game_of_life.Boards;
 using kata_game_of_life.Processors;
 using kata_game_of_life.State;
@@ -281,7 +282,8 @@ namespace kata_game_of_life_tests
         [MemberData(nameof(TwoDimensionalTestData))]
         public void Tick_Returned2DGameStateHasCorrectBoard_GivenInitialGameState(Cell[,] initialCellArray, Cell[,] expectedCellArray)
         {
-            var boardProcessor = new DefaultBoardProcessor("2333");
+            
+            var boardProcessor = new DefaultBoardProcessor(new RuleSet("2333"));
             var gameProcessor = new GameProcessor(0);
 
             var board = new TwoDimensionalBoard(initialCellArray);
@@ -300,7 +302,7 @@ namespace kata_game_of_life_tests
         [MemberData(nameof(ThreeDimensionalTestData))]
         public void Tick_Returned3DGameStateHasCorrectBoard_GivenInitialGameState(Cell[,,] initialCellArray, Cell[,,] expectedCellArray)
         {
-            var boardProcessor = new DefaultBoardProcessor("4555");
+            var boardProcessor = new DefaultBoardProcessor(new RuleSet("2333"));
             var gameProcessor = new GameProcessor(0);
 
             var board = new ThreeDimensionalBoard(initialCellArray);

@@ -5,7 +5,7 @@ namespace kata_game_of_life.Persistence
 
         public string BoardType { get; set; }
         public string BoardProcessorType { get; set; }
-        public string RuleSet { get; set; }
+        public RuleSet RuleSet { get; set; }
         public int TickNumber { get; set; }
         public object CellArray { get; set; }
 

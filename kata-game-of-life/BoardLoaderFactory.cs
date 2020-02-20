@@ -13,9 +13,9 @@ namespace kata_game_of_life
             return _componentRegister.ResolveComponent<Func<object, IBoard>>(boardType);
         }
 
-        public Func<int, IBoardProcessor> CreateBoardProcessorLoader(Type boardProcessorType)
+        public Func<RuleSet, IBoardProcessor> CreateBoardProcessorLoader(Type boardProcessorType)
         {
-            return _componentRegister.ResolveComponent<Func<int, IBoardProcessor>>(boardProcessorType);
+            return _componentRegister.ResolveComponent<Func<RuleSet, IBoardProcessor>>(boardProcessorType);
         }
     }
 }

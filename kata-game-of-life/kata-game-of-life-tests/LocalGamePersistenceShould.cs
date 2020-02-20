@@ -20,7 +20,7 @@ namespace kata_game_of_life_tests
         [Fact]
         public void SaveAndLoad_GameLoads2DCorrectly_AfterSaving()
         {
-            var gameStateToSave = new GameState(new TwoDimensionalBoard(new List<int>(){5, 5}), new DefaultBoardProcessor("2333"));
+            var gameStateToSave = new GameState(new TwoDimensionalBoard(new List<int>(){5, 5}), new DefaultBoardProcessor(new RuleSet("2333")));
 
             var expectedLoadedGameStateString = JsonConvert.SerializeObject(gameStateToSave);
 
@@ -38,7 +38,7 @@ namespace kata_game_of_life_tests
         [Fact]
         public void FileIsPersistent_ReturnsTrue_AfterSaving()
         {
-            var gameStateToSave = new GameState(new TwoDimensionalBoard(new List<int>(){5, 5}), new DefaultBoardProcessor("2333"));
+            var gameStateToSave = new GameState(new TwoDimensionalBoard(new List<int>(){5, 5}), new DefaultBoardProcessor(new RuleSet("2333")));
 
             var expectedLoadedGameStateString = JsonConvert.SerializeObject(gameStateToSave);
 
@@ -69,7 +69,7 @@ namespace kata_game_of_life_tests
                 .Returns(new Func<object, IBoard>(TypeLoader.LoadTwoDimensionalBoard));
             
             mockBoardLoaderFactory.Setup(x => x.CreateBoardProcessorLoader(It.IsAny<Type>()))
-                .Returns(new Func<int, IBoardProcessor>(TypeLoader.LoadDefaultBoardProcessor));
+                .Returns(new Func<RuleSet, IBoardProcessor>(TypeLoader.LoadDefaultBoardProcessor));
 
             return mockBoardLoaderFactory;
         }

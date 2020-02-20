@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.State;
 
@@ -7,23 +8,11 @@ namespace kata_game_of_life.Processors
 {
     public class DefaultBoardProcessor : IBoardProcessor
     {
+        public RuleSet RuleSet { get; }
 
-
-        public int AliveToAliveLowerBound { get; }
-        public int DeadToAliveUpperBound { get; }
-        public int DeadToAliveLowerBound { get; }
-        public int AliveToAliveUpperBound { get; }
-        
-        public string RuleSet { get; }
-        
-
-        public DefaultBoardProcessor(string ruleSet)
+        public DefaultBoardProcessor(RuleSet ruleSet)
         {
             RuleSet = ruleSet;
-            AliveToAliveLowerBound = int.Parse(ruleSet[0].ToString());
-            AliveToAliveUpperBound = int.Parse(ruleSet[1].ToString());
-            DeadToAliveLowerBound = int.Parse(ruleSet[2].ToString());
-            DeadToAliveUpperBound = int.Parse(ruleSet[3].ToString());
         }
 
         
@@ -53,11 +42,11 @@ namespace kata_game_of_life.Processors
             switch (initialCellState)
             {
                 case CellState.Alive:
-                    return adjacentCellCount >= AliveToAliveLowerBound && adjacentCellCount <= AliveToAliveUpperBound
+                    return adjacentCellCount >= RuleSet.AliveToAliveLowerBound && adjacentCellCount <= RuleSet.AliveToAliveUpperBound
                         ? CellState.Alive
                         : CellState.Dead;
                 case CellState.Dead:
-                    return adjacentCellCount >= DeadToAliveLowerBound && adjacentCellCount <= DeadToAliveUpperBound 
+                    return adjacentCellCount >= RuleSet.DeadToAliveLowerBound && adjacentCellCount <= RuleSet.DeadToAliveUpperBound 
                         ? CellState.Alive 
                         : CellState.Dead;
                 default:
