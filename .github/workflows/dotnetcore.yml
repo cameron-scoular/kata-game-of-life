@@ -13,8 +13,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
-    - name: Echo the greeting's time
-      run: echo pwd
+    - name: Current working directory
+      run: pwd
     - name: Build with dotnet
       run: dotnet build '../../kata-game-of-life' --configuration Release
     - name: Test with dotnet
