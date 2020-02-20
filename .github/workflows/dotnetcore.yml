@@ -14,8 +14,8 @@ jobs:
       with:
         dotnet-version: 2.2.108
     - name: Current working directory
-      run: pwd
+      run: ls
     - name: Build with dotnet
-      run: dotnet build '../../kata-game-of-life' --configuration Release
+      run: dotnet build --configuration Release
     - name: Test with dotnet
       run: dotnet test
