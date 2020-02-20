@@ -1,3 +1,0 @@
-steps:
-  - name: .NET Core CLI
-    uses: baruchiro/github-actions@0.0.1
