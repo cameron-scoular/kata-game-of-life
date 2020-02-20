@@ -16,6 +16,6 @@ jobs:
     - name: Current working directory
       run: ls
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build kata-game-of-life --configuration Release
     - name: Test with dotnet
       run: dotnet test
