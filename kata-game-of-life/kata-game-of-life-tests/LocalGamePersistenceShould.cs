@@ -32,7 +32,7 @@ namespace kata_game_of_life_tests
             
             Assert.Equal(expectedLoadedGameStateString, JsonConvert.SerializeObject(loadedGameState));
             
-            File.Delete($"{Configuration.DefaultSaveDirectory}{TestFileName}");
+            File.Delete($"{TestFileName}");
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace kata_game_of_life_tests
             
             Assert.True(localGamePersistence.FileHasBeenSaved(TestFileName));
             
-            File.Delete($"{Configuration.DefaultSaveDirectory}{TestFileName}");
+            File.Delete($"{TestFileName}");
         }
         
         [Fact]
