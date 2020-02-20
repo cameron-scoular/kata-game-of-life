@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using kata_game_of_life;
-using kata_game_of_life.Boards;
+using kata_game_of_life.Board;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Persistence;
 using kata_game_of_life.Processors;

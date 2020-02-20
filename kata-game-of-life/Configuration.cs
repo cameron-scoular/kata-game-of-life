@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using kata_game_of_life.Boards;
+using kata_game_of_life.Board;
+using kata_game_of_life.State;
 
 namespace kata_game_of_life
 {

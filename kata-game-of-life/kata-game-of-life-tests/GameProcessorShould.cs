@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using kata_game_of_life;
-using kata_game_of_life.Boards;
+using kata_game_of_life.Board;
 using kata_game_of_life.Processors;
 using kata_game_of_life.State;
 using Newtonsoft.Json;
@@ -156,7 +155,7 @@ namespace kata_game_of_life_tests
             // Empty board to empty board
             new object[]
             {
-                new[,,]
+                 new[,,]
                 {
                     {
                         {new Cell(0, CellState.Dead), new Cell(1, CellState.Dead)},
@@ -178,7 +177,6 @@ namespace kata_game_of_life_tests
                         {new Cell(4, CellState.Dead), new Cell(5, CellState.Dead)},
                         {new Cell(6, CellState.Dead), new Cell(7, CellState.Dead)}
                     }
-                    
                 }
             },
             new object[]
@@ -278,7 +276,7 @@ namespace kata_game_of_life_tests
         };
     
 
-    [Theory]
+        [Theory]
         [MemberData(nameof(TwoDimensionalTestData))]
         public void Tick_Returned2DGameStateHasCorrectBoard_GivenInitialGameState(Cell[,] initialCellArray, Cell[,] expectedCellArray)
         {
@@ -302,7 +300,7 @@ namespace kata_game_of_life_tests
         [MemberData(nameof(ThreeDimensionalTestData))]
         public void Tick_Returned3DGameStateHasCorrectBoard_GivenInitialGameState(Cell[,,] initialCellArray, Cell[,,] expectedCellArray)
         {
-            var boardProcessor = new DefaultBoardProcessor(new RuleSet("2333"));
+            var boardProcessor = new DefaultBoardProcessor(new RuleSet("4555"));
             var gameProcessor = new GameProcessor(0);
 
             var board = new ThreeDimensionalBoard(initialCellArray);

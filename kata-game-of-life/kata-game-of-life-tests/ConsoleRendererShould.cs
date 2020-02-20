@@ -1,5 +1,5 @@
-using kata_game_of_life.Boards;
-using kata_game_of_life.GameRenderers;
+using kata_game_of_life.Board;
+using kata_game_of_life.Renderer;
 using kata_game_of_life.State;
 using Xunit;
 

@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
-using kata_game_of_life.Boards;
+using kata_game_of_life.Board;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Processors;
 using kata_game_of_life.State;

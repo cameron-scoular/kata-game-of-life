@@ -1,9 +1,10 @@
 ﻿using System;
-using kata_game_of_life.Boards;
-using kata_game_of_life.GameRenderers;
+using kata_game_of_life.Board;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Persistence;
 using kata_game_of_life.Processors;
+using kata_game_of_life.Renderer;
+using kata_game_of_life.State;
 
 namespace kata_game_of_life
 {

@@ -1,7 +1,7 @@
 using System;
 using kata_game_of_life.Interfaces;
 
-namespace kata_game_of_life
+namespace kata_game_of_life.Renderer
 {
     public class GameRendererFactory : IGameRendererFactory
     {
