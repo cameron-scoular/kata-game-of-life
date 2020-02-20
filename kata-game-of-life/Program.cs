@@ -18,7 +18,7 @@ namespace kata_game_of_life
             RegisterComponents();
 
             var gameProcessor = new GameProcessor(Configuration.TickPeriod);
-            var gamePersistence = new LocalGamePersistence(new BoardLoaderFactory());
+            var gamePersistence = new LocalGamePersistence(new BoardLoaderFactory(), Configuration.DefaultSaveDirectory);
             var newGameProvider = new LocalNewGameProvider();
             var gameRendererFactory = new GameRendererFactory();
             

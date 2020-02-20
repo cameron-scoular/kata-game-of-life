@@ -9,10 +9,12 @@ namespace kata_game_of_life.Persistence
     public class LocalGamePersistence : IGamePersistence
     {
         private readonly IBoardLoaderFactory _boardLoaderFactory;
+        private readonly string _saveDirectory;
 
-        public LocalGamePersistence(IBoardLoaderFactory boardLoaderFactory)
+        public LocalGamePersistence(IBoardLoaderFactory boardLoaderFactory, string saveDirectory)
         {
             _boardLoaderFactory = boardLoaderFactory;
+            _saveDirectory = saveDirectory;
         }
         
         public GameState LoadGame(string fileName)
@@ -76,7 +78,7 @@ namespace kata_game_of_life.Persistence
 
         private PersistedGameState LoadSavedPersistedGameState (string loadFileName)
         {
-            var path = $"{Configuration.DefaultSaveDirectory}{loadFileName}";
+            var path = $"{_saveDirectory}{loadFileName}";
             var board = File.ReadAllText(path);
 
             return JsonConvert.DeserializeObject<PersistedGameState>(board);
@@ -84,7 +86,7 @@ namespace kata_game_of_life.Persistence
         
         private void SaveGameState (PersistedGameState persistedGameState, string saveFileName)
         {
-            var path = $"{Configuration.DefaultSaveDirectory}{saveFileName}";
+            var path = $"{_saveDirectory}{saveFileName}";
             
             File.WriteAllText(path, JsonConvert.SerializeObject(persistedGameState));
         }
