@@ -13,9 +13,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.100'
-    - name: Current working directory
-      run: ls
     - name: Build with dotnet
       run: dotnet build kata-game-of-life --configuration Release
     - name: Test with dotnet
-      run: dotnet test
+      run: dotnet test kata-game-of-life
