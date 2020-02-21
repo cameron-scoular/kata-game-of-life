@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using kata_game_of_life;
 using kata_game_of_life.Board;
+using kata_game_of_life.BoardLoaders;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Persistence;
 using kata_game_of_life.Processors;
@@ -62,14 +63,14 @@ namespace kata_game_of_life_tests
             Assert.False(localGamePersistence.FileHasBeenSaved("yeet.txt"));
         }
         
-        private Mock<IBoardLoaderFactory> GetMockBoardLoaderFactory()
+        private Mock<ILoaderFactory> GetMockBoardLoaderFactory()
         {
-            var mockBoardLoaderFactory = new Mock<IBoardLoaderFactory>();
+            var mockBoardLoaderFactory = new Mock<ILoaderFactory>();
             mockBoardLoaderFactory.Setup(x => x.CreateBoardLoader(It.IsAny<Type>()))
-                .Returns(new Func<object, IBoard>(TypeLoader.LoadTwoDimensionalBoard));
+                .Returns(new TwoDimensionalBoardLoader());
             
-            mockBoardLoaderFactory.Setup(x => x.CreateBoardProcessorLoader(It.IsAny<Type>()))
-                .Returns(new Func<RuleSet, IBoardProcessor>(TypeLoader.LoadDefaultBoardProcessor));
+            mockBoardLoaderFactory.Setup(x => x.CreateBoardProcessorLoader())
+                .Returns(new BoardProcessorLoader());
 
             return mockBoardLoaderFactory;
         }

@@ -26,6 +26,17 @@ namespace kata_game_of_life.Persistence
         {
             return arguments.DefaultDimensions.Count > 0 || arguments.LoadFileName == null || arguments.LoadFileName == string.Empty;
         }
+        
+        private GameState LoadDefaultNewGameState(Arguments arguments)
+        {
+            var boardRules = Configuration.DefaultRuleSets.First(r => r.Key == arguments.DefaultDimensions.Count);
+            var boardType = Configuration.DefaultBoards.First(t => t.Key == arguments.DefaultDimensions.Count).Value;
+            var ruleSet = boardRules.Value;
+
+            var board = (IBoard)Activator.CreateInstance(boardType, arguments.DefaultDimensions);
+            
+            return new GameState(board, new DefaultBoardProcessor(ruleSet));
+        }
 
         private GameState LoadNewGameFile(string fileName)
         {
@@ -38,16 +49,6 @@ namespace kata_game_of_life.Persistence
             return new GameState(board, new DefaultBoardProcessor(ruleSet));
         }
 
-        private GameState LoadDefaultNewGameState(Arguments arguments)
-        {
-            var boardRules = Configuration.DefaultRuleSets.First(r => r.Key == arguments.DefaultDimensions.Count);
-            var boardType = Configuration.DefaultBoards.First(t => t.Key == arguments.DefaultDimensions.Count).Value;
-            var ruleSet = boardRules.Value;
-
-            var board = (IBoard)Activator.CreateInstance(boardType, arguments.DefaultDimensions);
-            
-            return new GameState(board, new DefaultBoardProcessor(ruleSet));
-        }
         
         private static Cell[,] LoadNew2DCellArray(string fileName)
         {

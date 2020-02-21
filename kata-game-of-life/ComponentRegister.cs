@@ -5,13 +5,26 @@ namespace kata_game_of_life
 {
     public class ComponentRegister
     {
-        
-        private readonly Dictionary<Type, ComponentRegistration> _boardComponentRegistrations = new Dictionary<Type, ComponentRegistration>();
-        
+        private readonly Dictionary<Type, ComponentRegistration> _boardComponentRegistrations =
+            new Dictionary<Type, ComponentRegistration>();
+
+        private readonly ComponentRegistration _componentRegistration = new ComponentRegistration();
+
         private static ComponentRegister _instance;
+
         public static ComponentRegister GetComponentRegisterInstance()
         {
             return _instance ??= new ComponentRegister();
+        }
+
+        public void RegisterComponent<TComponent>(object componentInstance)
+        {
+            _componentRegistration.RegisterComponent<TComponent>(componentInstance);
+        }
+
+        public TComponent ResolveComponent<TComponent>()
+        {
+            return (TComponent) _componentRegistration.ResolveComponent<TComponent>();
         }
 
         public void RegisterComponent<TComponent>(Type boardType, object componentInstance)
@@ -22,8 +35,8 @@ namespace kata_game_of_life
                 boardComponentRegistration = _boardComponentRegistrations[boardType];
                 boardComponentRegistration.RegisterComponent<TComponent>(componentInstance);
             }
-            else{
-                
+            else
+            {
                 boardComponentRegistration = new ComponentRegistration();
                 boardComponentRegistration.RegisterComponent<TComponent>(componentInstance);
                 _boardComponentRegistrations.Add(boardType, boardComponentRegistration);
@@ -33,23 +46,22 @@ namespace kata_game_of_life
         public TComponent ResolveComponent<TComponent>(Type boardType)
         {
             var componentRegistration = _boardComponentRegistrations[boardType];
-            return (TComponent)componentRegistration.ResolveComponent<TComponent>();
+            return (TComponent) componentRegistration.ResolveComponent<TComponent>();
         }
 
-    }
-
-    public class ComponentRegistration
-    {
-        private readonly Dictionary<Type, object> _componentRegistrations = new Dictionary<Type, object>();
-
-        public void RegisterComponent<T>(object instance)
+        private class ComponentRegistration
         {
-            _componentRegistrations.Add(typeof(T), instance);
-        }
+            private readonly Dictionary<Type, object> _componentRegistrations = new Dictionary<Type, object>();
 
-        public object ResolveComponent<T>()
-        {
-            return _componentRegistrations[typeof(T)];
+            public void RegisterComponent<T>(object instance)
+            {
+                _componentRegistrations.Add(typeof(T), instance);
+            }
+
+            public object ResolveComponent<T>()
+            {
+                return _componentRegistrations[typeof(T)];
+            }
         }
     }
 }

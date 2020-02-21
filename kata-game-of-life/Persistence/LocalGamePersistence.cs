@@ -8,12 +8,12 @@ namespace kata_game_of_life.Persistence
 {
     public class LocalGamePersistence : IGamePersistence
     {
-        private readonly IBoardLoaderFactory _boardLoaderFactory;
+        private readonly ILoaderFactory _loaderFactory;
         private readonly string _saveDirectory;
 
-        public LocalGamePersistence(IBoardLoaderFactory boardLoaderFactory, string saveDirectory)
+        public LocalGamePersistence(ILoaderFactory loaderFactory, string saveDirectory)
         {
-            _boardLoaderFactory = boardLoaderFactory;
+            _loaderFactory = loaderFactory;
             _saveDirectory = saveDirectory;
         }
         
@@ -29,14 +29,13 @@ namespace kata_game_of_life.Persistence
             var persistedGameState = LoadSavedPersistedGameState(fileName);
 
             var boardType = Type.GetType(persistedGameState.BoardType);
-            var boardProcessorType = Type.GetType(persistedGameState.BoardProcessorType);
+            var boardLoaderType = Type.GetType(persistedGameState.BoardProcessorType);
 
-            var loadBoardFunction = _boardLoaderFactory.CreateBoardLoader(boardType);
-            var loadBoardProcessorFunction = _boardLoaderFactory.CreateBoardProcessorLoader(boardProcessorType);
-            
-            var board = loadBoardFunction(persistedGameState.CellArray);
-            
-            var boardProcessor = loadBoardProcessorFunction(persistedGameState.RuleSet);
+            var boardLoader = _loaderFactory.CreateBoardLoader(boardType);
+            var board = boardLoader.LoadBoard(persistedGameState.CellArray);
+
+            var boardProcessorLoader = _loaderFactory.CreateBoardProcessorLoader();
+            var boardProcessor = boardProcessorLoader.LoadBoardProcessor(persistedGameState.RuleSet, boardLoaderType);
 
             return new GameState(board, boardProcessor)
             {
@@ -71,6 +70,7 @@ namespace kata_game_of_life.Persistence
             }
             catch (Exception e)
             {
+                Console.WriteLine("File is not a valid savefile, searching for new game file");
                 return false;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using kata_game_of_life.Board;
+using kata_game_of_life.BoardLoaders;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Persistence;
 using kata_game_of_life.Processors;
@@ -18,7 +19,7 @@ namespace kata_game_of_life
             RegisterComponents();
 
             var gameProcessor = new GameProcessor(Configuration.TickPeriod);
-            var gamePersistence = new LocalGamePersistence(new BoardLoaderFactory(), Configuration.DefaultSaveDirectory);
+            var gamePersistence = new LocalGamePersistence(new LoaderFactory(), Configuration.DefaultSaveDirectory);
             var newGameProvider = new LocalNewGameProvider();
             var gameRendererFactory = new GameRendererFactory();
             
@@ -31,22 +32,16 @@ namespace kata_game_of_life
         {
             var componentRegister = ComponentRegister.GetComponentRegisterInstance();
             
-            var twoDimensionalBoardLoadFunction = new Func<object, IBoard>(TypeLoader.LoadTwoDimensionalBoard);
-            componentRegister.RegisterComponent<Func<object, IBoard>>(typeof(TwoDimensionalBoard), twoDimensionalBoardLoadFunction);
+            componentRegister.RegisterComponent<IBoardLoader>(typeof(TwoDimensionalBoard), new TwoDimensionalBoardLoader());
             
-            var threeDimensionalBoardLoadFunction = new Func<object, IBoard>(TypeLoader.LoadThreeDimensionalBoard);
-            componentRegister.RegisterComponent<Func<object, IBoard>>(typeof(ThreeDimensionalBoard), threeDimensionalBoardLoadFunction);
+            componentRegister.RegisterComponent<IBoardLoader>(typeof(ThreeDimensionalBoard), new ThreeDimensionalBoardLoader());
+            
+            componentRegister.RegisterComponent<IBoardProcessorLoader>(new BoardProcessorLoader());
+            
+            componentRegister.RegisterComponent<IGameRenderer>(typeof(TwoDimensionalBoard), new TwoDimensionalConsoleRenderer());
+            
+            componentRegister.RegisterComponent<IGameRenderer>(typeof(ThreeDimensionalBoard), new ThreeDimensionalConsoleRenderer());
 
-            var defaultBoardProcessorLoadFunction = new Func<RuleSet, IBoardProcessor>(TypeLoader.LoadDefaultBoardProcessor); 
-            componentRegister.RegisterComponent<Func<object, IBoardProcessor>>(typeof(TwoDimensionalBoard), defaultBoardProcessorLoadFunction);
-            
-            var twoDimensionalConsoleRenderer = new TwoDimensionalConsoleRenderer();
-            componentRegister.RegisterComponent<IGameRenderer>(typeof(TwoDimensionalBoard), twoDimensionalConsoleRenderer);
-            
-            var threeDimensionalConsoleRenderer = new ThreeDimensionalConsoleRenderer();
-            componentRegister.RegisterComponent<IGameRenderer>(typeof(ThreeDimensionalBoard), threeDimensionalConsoleRenderer);
-            
-            componentRegister.RegisterComponent<Type>(typeof(TwoDimensionalBoard), 2);
         }
 
     }
