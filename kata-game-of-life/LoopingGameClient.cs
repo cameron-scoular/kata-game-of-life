@@ -62,16 +62,6 @@ namespace kata_game_of_life
             }
             else
             {
-                Type boardType;
-                
-                try
-                {
-                    boardType = Configuration.DefaultBoards[arguments.DefaultDimensions.Count];
-                }
-                catch (KeyNotFoundException e)
-                {
-                    boardType = Configuration.DefaultBoards[Configuration.DefaultDimensions.Count];
-                }
                 
                 initialGameState = _newGameProvider.LoadNewGame(arguments);
 
