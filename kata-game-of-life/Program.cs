@@ -17,13 +17,13 @@ namespace kata_game_of_life
             var arguments = ArgumentParser.ParseArguments(args);
             
             RegisterComponents();
-
+            var loaderFactory = new LoaderFactory();
+            var newGameProvider = new NewGameProvider(loaderFactory);
             var gameProcessor = new GameProcessor(Configuration.TickPeriod);
-            var gamePersistence = new LocalGamePersistence(new LoaderFactory(), Configuration.DefaultSaveDirectory);
-            var newGameProvider = new LocalNewGameProvider();
+            var gamePersistence = new LocalGamePersistence(loaderFactory, Configuration.DefaultSaveDirectory);
             var gameRendererFactory = new GameRendererFactory();
             
-            var client = new LoopingGameClient(gameProcessor, gamePersistence, newGameProvider, gameRendererFactory, arguments.SaveFileName);
+            var client = new LoopingGameClient(gameProcessor, newGameProvider, gamePersistence, loaderFactory, gameRendererFactory, arguments.SaveFileName);
             
             client.PlayGame(arguments);
         }
@@ -41,6 +41,8 @@ namespace kata_game_of_life
             componentRegister.RegisterComponent<IGameRenderer>(typeof(TwoDimensionalBoard), new TwoDimensionalConsoleRenderer());
             
             componentRegister.RegisterComponent<IGameRenderer>(typeof(ThreeDimensionalBoard), new ThreeDimensionalConsoleRenderer());
+            
+            componentRegister.RegisterComponent<INewGameLoader>(typeof(TwoDimensionalBoard), new TwoDimensionalNewGameLoader());
 
         }
 

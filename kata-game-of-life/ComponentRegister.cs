@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using kata_game_of_life.Interfaces;
 
 namespace kata_game_of_life
 {
@@ -27,8 +28,13 @@ namespace kata_game_of_life
             return (TComponent) _componentRegistration.ResolveComponent<TComponent>();
         }
 
-        public void RegisterComponent<TComponent>(Type boardType, object componentInstance)
+        public void RegisterComponent<TComponent> (Type boardType, object componentInstance)
         {
+            if (!typeof(IBoard).IsAssignableFrom(boardType))
+            {
+                throw new ArgumentException("Specified parameter type does not implement IBoard");
+            }
+            
             ComponentRegistration boardComponentRegistration;
             if (_boardComponentRegistrations.ContainsKey(boardType))
             {
@@ -45,6 +51,11 @@ namespace kata_game_of_life
 
         public TComponent ResolveComponent<TComponent>(Type boardType)
         {
+            if (!typeof(IBoard).IsAssignableFrom(boardType))
+            {
+                throw new ArgumentException("Specified parameter type does not implement IBoard");
+            }
+            
             var componentRegistration = _boardComponentRegistrations[boardType];
             return (TComponent) componentRegistration.ResolveComponent<TComponent>();
         }
@@ -53,14 +64,19 @@ namespace kata_game_of_life
         {
             private readonly Dictionary<Type, object> _componentRegistrations = new Dictionary<Type, object>();
 
-            public void RegisterComponent<T>(object instance)
+            public void RegisterComponent<TComponent>(object instance)
             {
-                _componentRegistrations.Add(typeof(T), instance);
+                if (!(instance is TComponent))
+                {
+                    throw new ArgumentException("Injected instance is not of correct type");
+                }
+                
+                _componentRegistrations.Add(typeof(TComponent), instance);
             }
 
-            public object ResolveComponent<T>()
+            public object ResolveComponent<TComponent>()
             {
-                return _componentRegistrations[typeof(T)];
+                return _componentRegistrations[typeof(TComponent)];
             }
         }
     }

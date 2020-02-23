@@ -15,6 +15,8 @@ namespace kata_game_of_life
 
         public static string DefaultSaveDirectory = "../../../Data/Saved Boards/";
         public static string DefaultNewDirectory = "../../../Data/New Boards/";
+        
+        public static List<int> DefaultDimensions = new List<int>() { 10, 10 };
 
         public static Dictionary<int, RuleSet> DefaultRuleSets = new Dictionary<int, RuleSet>()
         {

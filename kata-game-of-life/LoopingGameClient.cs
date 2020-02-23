@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Processors;
 using kata_game_of_life.State;
@@ -7,17 +9,19 @@ namespace kata_game_of_life
     public class LoopingGameClient : IGameClient
     {
         private readonly GameProcessor _gameProcessor;
+        private readonly NewGameProvider _newGameProvider;
         private readonly IGamePersistence _gamePersistence;
-        private readonly INewGameProvider _newGameProvider;
+        private readonly ILoaderFactory _loaderFactory;
         private readonly IGameRendererFactory _gameRendererFactory;
         private IGameRenderer _renderer;
         private readonly string _savePath;
 
-        public LoopingGameClient(GameProcessor gameProcessor, IGamePersistence gamePersistence, INewGameProvider newGameProvider, IGameRendererFactory gameRendererFactory, string savePath)
+        public LoopingGameClient(GameProcessor gameProcessor, NewGameProvider newGameProvider, IGamePersistence gamePersistence, ILoaderFactory loaderFactory, IGameRendererFactory gameRendererFactory, string savePath)
         {
             _gameProcessor = gameProcessor;
-            _gamePersistence = gamePersistence;
             _newGameProvider = newGameProvider;
+            _gamePersistence = gamePersistence;
+            _loaderFactory = loaderFactory;
             _gameRendererFactory = gameRendererFactory;
             _savePath = savePath;
         
@@ -58,7 +62,19 @@ namespace kata_game_of_life
             }
             else
             {
+                Type boardType;
+                
+                try
+                {
+                    boardType = Configuration.DefaultBoards[arguments.DefaultDimensions.Count];
+                }
+                catch (KeyNotFoundException e)
+                {
+                    boardType = Configuration.DefaultBoards[Configuration.DefaultDimensions.Count];
+                }
+                
                 initialGameState = _newGameProvider.LoadNewGame(arguments);
+
             }
             
             return initialGameState;

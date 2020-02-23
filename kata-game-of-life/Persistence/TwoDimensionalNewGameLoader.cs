@@ -8,39 +8,12 @@ using kata_game_of_life.State;
 
 namespace kata_game_of_life.Persistence
 {
-    public class LocalNewGameProvider : INewGameProvider
+    public class TwoDimensionalNewGameLoader : INewGameLoader
     {
-
-        public GameState LoadNewGame(Arguments arguments)
-        {
-            
-            if (LoadingArgumentsAreNotSpecified(arguments))
-            {
-                return LoadDefaultNewGameState(arguments);
-            }
-
-            return LoadNewGameFile(arguments.LoadFileName);
-        }
-
-        private static bool LoadingArgumentsAreNotSpecified(Arguments arguments)
-        {
-            return arguments.DefaultDimensions.Count > 0 || arguments.LoadFileName == null || arguments.LoadFileName == string.Empty;
-        }
         
-        private GameState LoadDefaultNewGameState(Arguments arguments)
+        public GameState LoadNewGame(string fileName)
         {
-            var boardRules = Configuration.DefaultRuleSets.First(r => r.Key == arguments.DefaultDimensions.Count);
-            var boardType = Configuration.DefaultBoards.First(t => t.Key == arguments.DefaultDimensions.Count).Value;
-            var ruleSet = boardRules.Value;
-
-            var board = (IBoard)Activator.CreateInstance(boardType, arguments.DefaultDimensions);
-            
-            return new GameState(board, new DefaultBoardProcessor(ruleSet));
-        }
-
-        private GameState LoadNewGameFile(string fileName)
-        {
-            
+            fileName = NewGameProvider.AddFileNameExtension(fileName);
             var cells = LoadNew2DCellArray(fileName);
             var board = new TwoDimensionalBoard(cells);
 
@@ -55,6 +28,7 @@ namespace kata_game_of_life.Persistence
             var path = $"{Configuration.DefaultNewDirectory}{fileName}";
             
             var rowStrings = File.ReadAllLines(path);
+            rowStrings = rowStrings.Skip(1).ToArray();
 
             var maxX = rowStrings[0].Length;
             var maxY = rowStrings.Length;

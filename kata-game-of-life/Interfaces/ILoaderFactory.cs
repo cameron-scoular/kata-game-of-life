@@ -8,5 +8,7 @@ namespace kata_game_of_life.Interfaces
     {
         IBoardLoader CreateBoardLoader(Type boardType);
         IBoardProcessorLoader CreateBoardProcessorLoader();
+
+        INewGameLoader CreateNewGameLoader(Type boardType);
     }
 }

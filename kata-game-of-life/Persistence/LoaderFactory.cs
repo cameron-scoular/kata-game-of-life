@@ -1,8 +1,7 @@
 using System;
 using kata_game_of_life.Interfaces;
-using kata_game_of_life.State;
 
-namespace kata_game_of_life.Board
+namespace kata_game_of_life.Persistence
 {
     public class LoaderFactory : ILoaderFactory
     {
@@ -17,6 +16,11 @@ namespace kata_game_of_life.Board
         public IBoardProcessorLoader CreateBoardProcessorLoader()
         {
             return _componentRegister.ResolveComponent<IBoardProcessorLoader>();
+        }
+
+        public INewGameLoader CreateNewGameLoader(Type boardType)
+        {
+            return _componentRegister.ResolveComponent<INewGameLoader>(boardType);
         }
     }
 }
