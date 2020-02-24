@@ -34,7 +34,7 @@ namespace kata_game_of_life
             while (true)
             {
                 var nextGameState = _gameProcessor.Tick();
-                _renderer.Render(initialGameState);
+                _renderer.Render(nextGameState);
                 
                 if (ShouldSaveGame(nextGameState))
                 {
