@@ -26,7 +26,7 @@ namespace kata_game_of_life.Persistence
         
         private GameState LoadPersistedGame(string fileName)
         {
-            var persistedGameState = LoadSavedPersistedGameState(fileName);
+            var persistedGameState = ReadPersistedGameState(fileName);
 
             var boardType = Type.GetType(persistedGameState.BoardType);
             var boardLoaderType = Type.GetType(persistedGameState.BoardProcessorType);
@@ -56,7 +56,7 @@ namespace kata_game_of_life.Persistence
                 CellArray = gameState.Board.GetCellArray()
             };
             
-            SaveGameState(persistedBoardState, fileNameWithExtension);
+            WritePersistedGameState(persistedBoardState, fileNameWithExtension);
         }
         
         public bool FileIsSaveFile(string fileName)
@@ -75,7 +75,7 @@ namespace kata_game_of_life.Persistence
         }
 
 
-        private PersistedGameState LoadSavedPersistedGameState (string loadFileName)
+        private PersistedGameState ReadPersistedGameState (string loadFileName)
         {
             var path = $"{_saveDirectory}{loadFileName}";
             var board = File.ReadAllText(path);
@@ -83,7 +83,7 @@ namespace kata_game_of_life.Persistence
             return JsonConvert.DeserializeObject<PersistedGameState>(board);
         }
         
-        private void SaveGameState (PersistedGameState persistedGameState, string saveFileName)
+        private void WritePersistedGameState (PersistedGameState persistedGameState, string saveFileName)
         {
             var path = $"{_saveDirectory}{saveFileName}";
             

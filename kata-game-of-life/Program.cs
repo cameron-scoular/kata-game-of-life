@@ -39,7 +39,6 @@ namespace kata_game_of_life
             componentRegister.RegisterComponent<IGameRenderer>(typeof(TwoDimensionalBoard), new TwoDimensionalConsoleRenderer());
             
             componentRegister.RegisterComponent<IGameRenderer>(typeof(ThreeDimensionalBoard), new ThreeDimensionalConsoleRenderer());
-            // todo runtime service to find valid renderer for x dimensions instead of registering against a board directly
             
             componentRegister.RegisterComponent<INewGameLoader>(typeof(TwoDimensionalBoard), new TwoDimensionalNewGameLoader());
             

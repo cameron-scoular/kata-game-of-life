@@ -12,7 +12,6 @@ namespace kata_game_of_life.Renderer
         public void Render(GameState gameState)
         {
             var boardString = GenerateBoardString(gameState);
-            var lineBreakerLength = gameState.Board.GetDimensions()[0];
             var lineBreaker = GetLineBreaker(gameState.Board.GetDimensions());
             
             Console.WriteLine(lineBreaker);
