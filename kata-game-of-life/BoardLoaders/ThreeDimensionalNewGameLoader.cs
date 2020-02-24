@@ -41,7 +41,7 @@ namespace kata_game_of_life.BoardLoaders
                 {
                     for (var x = 0; x < maxX; x++)
                     {
-                        var coordinateCharacter = rowStrings[y + ( y + 1 ) * z][x];
+                        var coordinateCharacter = rowStrings[y + ( maxY + 1 ) * z][x];
 
                         var newCellState = coordinateCharacter == Configuration.CellAliveSymbol ? CellState.Alive : CellState.Dead;
                         var cellId = z * maxY * maxX + y * maxX + x;
