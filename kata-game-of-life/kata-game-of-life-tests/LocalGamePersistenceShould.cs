@@ -48,7 +48,7 @@ namespace kata_game_of_life_tests
             var localGamePersistence = new LocalGamePersistence(mockBoardLoaderFactory.Object, "");
             localGamePersistence.SaveGame(gameStateToSave, TestFileName);
             
-            Assert.True(localGamePersistence.FileHasBeenSaved(TestFileName));
+            Assert.True(localGamePersistence.FileIsSaveFile(TestFileName));
             
             File.Delete($"{TestFileName}");
         }
@@ -60,7 +60,7 @@ namespace kata_game_of_life_tests
 
             var localGamePersistence = new LocalGamePersistence(mockBoardLoaderFactory.Object, "");
          
-            Assert.False(localGamePersistence.FileHasBeenSaved("yeet.txt"));
+            Assert.False(localGamePersistence.FileIsSaveFile("yeet.txt"));
         }
         
         private Mock<ILoaderFactory> GetMockBoardLoaderFactory()

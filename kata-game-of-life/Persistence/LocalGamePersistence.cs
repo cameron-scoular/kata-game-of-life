@@ -59,7 +59,7 @@ namespace kata_game_of_life.Persistence
             SaveGameState(persistedBoardState, fileNameWithExtension);
         }
         
-        public bool FileHasBeenSaved(string fileName)
+        public bool FileIsSaveFile(string fileName)
         {
             var fileNameWithExtension = AddFileNameExtension(fileName);
 
@@ -70,7 +70,6 @@ namespace kata_game_of_life.Persistence
             }
             catch (Exception e)
             {
-                Console.WriteLine("File is not a valid savefile, searching for new game file");
                 return false;
             }
         }

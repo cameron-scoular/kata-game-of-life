@@ -28,7 +28,7 @@ namespace kata_game_of_life.Persistence
             var path = $"{Configuration.DefaultNewDirectory}{fileName}";
             
             var rowStrings = File.ReadAllLines(path);
-            rowStrings = rowStrings.Skip(1).ToArray();
+            rowStrings = rowStrings.Skip(1).ToArray(); // Skips dimension number in the file
 
             var maxX = rowStrings[0].Length;
             var maxY = rowStrings.Length;

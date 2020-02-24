@@ -4,6 +4,6 @@ namespace kata_game_of_life.Interfaces
 {
     public interface INewGameLoader
     {
-        GameState LoadNewGame(string path);
+        GameState LoadNewGame(string fileName);
     }
 }

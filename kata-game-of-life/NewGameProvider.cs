@@ -9,7 +9,7 @@ namespace kata_game_of_life
 {
     public class NewGameProvider
     {
-        private ILoaderFactory _loaderFactory;
+        private readonly ILoaderFactory _loaderFactory;
         private INewGameLoader _newGameLoader;
 
         public NewGameProvider(ILoaderFactory loaderFactory)

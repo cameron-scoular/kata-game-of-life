@@ -7,6 +7,6 @@ namespace kata_game_of_life.Interfaces
         GameState LoadGame(string path);
         void SaveGame(GameState gameState, string fileName);
 
-        bool FileHasBeenSaved(string fileName);
+        bool FileIsSaveFile(string fileName);
     }
 }

@@ -23,7 +23,7 @@ namespace kata_game_of_life
             var gamePersistence = new LocalGamePersistence(loaderFactory, Configuration.DefaultSaveDirectory);
             var gameRendererFactory = new GameRendererFactory();
             
-            var client = new LoopingGameClient(gameProcessor, newGameProvider, gamePersistence, loaderFactory, gameRendererFactory, arguments.SaveFileName);
+            var client = new LoopingGameClient(gameProcessor, newGameProvider, gamePersistence, gameRendererFactory, arguments.SaveFileName);
             
             client.PlayGame(arguments);
         }
@@ -41,8 +41,11 @@ namespace kata_game_of_life
             componentRegister.RegisterComponent<IGameRenderer>(typeof(TwoDimensionalBoard), new TwoDimensionalConsoleRenderer());
             
             componentRegister.RegisterComponent<IGameRenderer>(typeof(ThreeDimensionalBoard), new ThreeDimensionalConsoleRenderer());
+            // todo runtime service to find valid renderer for x dimensions instead of registering against a board directly
             
             componentRegister.RegisterComponent<INewGameLoader>(typeof(TwoDimensionalBoard), new TwoDimensionalNewGameLoader());
+            
+            componentRegister.RegisterComponent<INewGameLoader>(typeof(ThreeDimensionalBoard), new ThreeDimensionalNewGameLoader());
 
         }
 
