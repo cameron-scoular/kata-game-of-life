@@ -7,12 +7,12 @@ using kata_game_of_life.State;
 
 namespace kata_game_of_life
 {
-    public class NewGameProvider
+    public class LocalNewGameProvider : INewGameProvider
     {
         private readonly ILoaderFactory _loaderFactory;
         private INewGameLoader _newGameLoader;
 
-        public NewGameProvider(ILoaderFactory loaderFactory)
+        public LocalNewGameProvider(ILoaderFactory loaderFactory)
         {
             _loaderFactory = loaderFactory;
         }

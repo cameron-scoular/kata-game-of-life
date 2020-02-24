@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using kata_game_of_life.Board;
@@ -13,7 +12,7 @@ namespace kata_game_of_life.Persistence
         
         public GameState LoadNewGame(string fileName)
         {
-            fileName = NewGameProvider.AddFileNameExtension(fileName);
+            fileName = LocalNewGameProvider.AddFileNameExtension(fileName);
             var cells = LoadNew2DCellArray(fileName);
             var board = new TwoDimensionalBoard(cells);
 

@@ -36,7 +36,7 @@ namespace kata_game_of_life.Board
         
         private Cell[,,] CreateRandomCells(int xMax, int yMax, int zMax)
         {
-            var cells = new Cell[10, 10, 10];
+            var cells = new Cell[xMax, yMax, zMax];
             var random = new Random();
 
             for (var x = 0; x < xMax; x++)

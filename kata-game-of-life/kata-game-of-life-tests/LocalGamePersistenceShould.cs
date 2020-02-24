@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using kata_game_of_life;
 using kata_game_of_life.Board;
 using kata_game_of_life.BoardLoaders;
 using kata_game_of_life.Interfaces;

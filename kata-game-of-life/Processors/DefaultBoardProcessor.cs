@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.State;
 

@@ -7,16 +7,16 @@ namespace kata_game_of_life
     public class LoopingGameClient : IGameClient
     {
         private readonly GameProcessor _gameProcessor;
-        private readonly NewGameProvider _newGameProvider;
+        private readonly INewGameProvider _localNewGameProvider;
         private readonly IGamePersistence _gamePersistence;
         private readonly IGameRendererFactory _gameRendererFactory;
         private IGameRenderer _renderer;
         private readonly string _savePath;
 
-        public LoopingGameClient(GameProcessor gameProcessor, NewGameProvider newGameProvider, IGamePersistence gamePersistence, IGameRendererFactory gameRendererFactory, string savePath)
+        public LoopingGameClient(GameProcessor gameProcessor, INewGameProvider localNewGameProvider, IGamePersistence gamePersistence, IGameRendererFactory gameRendererFactory, string savePath)
         {
             _gameProcessor = gameProcessor;
-            _newGameProvider = newGameProvider;
+            _localNewGameProvider = localNewGameProvider;
             _gamePersistence = gamePersistence;
             _gameRendererFactory = gameRendererFactory;
             _savePath = savePath;
@@ -59,7 +59,7 @@ namespace kata_game_of_life
             else
             {
                 
-                initialGameState = _newGameProvider.LoadNewGame(arguments);
+                initialGameState = _localNewGameProvider.LoadNewGame(arguments);
 
             }
             

@@ -1,11 +1,9 @@
-﻿using System;
-using kata_game_of_life.Board;
+﻿using kata_game_of_life.Board;
 using kata_game_of_life.BoardLoaders;
 using kata_game_of_life.Interfaces;
 using kata_game_of_life.Persistence;
 using kata_game_of_life.Processors;
 using kata_game_of_life.Renderer;
-using kata_game_of_life.State;
 
 namespace kata_game_of_life
 {
@@ -18,7 +16,7 @@ namespace kata_game_of_life
             
             RegisterComponents();
             var loaderFactory = new LoaderFactory();
-            var newGameProvider = new NewGameProvider(loaderFactory);
+            var newGameProvider = new LocalNewGameProvider(loaderFactory);
             var gameProcessor = new GameProcessor(Configuration.TickPeriod);
             var gamePersistence = new LocalGamePersistence(loaderFactory, Configuration.DefaultSaveDirectory);
             var gameRendererFactory = new GameRendererFactory();
