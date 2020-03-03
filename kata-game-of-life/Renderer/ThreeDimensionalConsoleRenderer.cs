@@ -14,7 +14,6 @@ namespace kata_game_of_life.Renderer
             var boardString = GenerateBoardString(gameState);
             var lineBreaker = GetLineBreaker(gameState.Board.GetDimensions());
             
-            Console.WriteLine(lineBreaker);
             Console.WriteLine(boardString);
             Console.WriteLine("Tick " + gameState.TickNumber);
             Console.WriteLine(lineBreaker);

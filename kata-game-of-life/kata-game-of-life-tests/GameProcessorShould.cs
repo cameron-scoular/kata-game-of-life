@@ -248,6 +248,7 @@ namespace kata_game_of_life_tests
                     }
                 }
             },
+            // Single alive to all dead on board
             new object[]
             {
                 new [,,]

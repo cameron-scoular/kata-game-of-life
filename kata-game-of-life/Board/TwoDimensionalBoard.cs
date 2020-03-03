@@ -40,7 +40,7 @@ namespace kata_game_of_life.Board
                 cell.CellId = id;
                 id++;
             }
-
+            
             return cellArray;
         }
         
